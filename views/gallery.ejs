@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMG Electric - Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00d09c;
+            --secondary-color: #5367ff;
+            --dark-color: #1e2232;
+            --text-color: #44475b;
+            --light-color: #ffffff;
+            --gray-color: #f6f6f8;
+            --border-color: #ecedef;
+        }
+
+        body {
+            padding-top: 76px; /* Height of navbar */
+            font-family: 'Inter', sans-serif;
+            background-color: var(--gray-color);
+        }
+
+        .gallery-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('/images/gallery/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 0; /* Remove additional margin since we have padding-top on body */
+            margin-bottom: 2rem;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 76px; /* Match navbar height */
+            z-index: 90;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            border: none;
+            background: none;
+            color: var(--text-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .filter-btn:hover::after,
+        .filter-btn.active::after {
+            width: 80%;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .gallery-grid.loading::after {
+            content: 'Loading gallery...';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            aspect-ratio: 4/3;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+            visibility: hidden;
+        }
+
+        .gallery-item.show {
+            visibility: visible;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 991px) {
+            body {
+                padding-top: 64px; /* Adjusted for smaller navbar */
+            }
+
+            .filter-section {
+                top: 64px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-hero {
+                height: 300px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-grid {
+                padding: 1rem;
+            }
+
+            .filter-section {
+                padding: 0.5rem 0;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .gallery-caption {
+                padding: 1rem;
+            }
+
+            .gallery-caption h5 {
+                font-size: 1rem;
+            }
+
+            .gallery-caption p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <div class="gallery-hero">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Our Gallery</h1>
+            <p class="lead">Explore our electric scooters and success stories</p>
+        </div>
+    </div>
+
+    <div class="filter-section">
+        <div class="container">
+            <div class="d-flex justify-content-center flex-wrap gap-3">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-border-all me-2"></i>All
+                </button>
+                <button class="filter-btn" data-filter="scooters">
+                    <i class="fas fa-motorcycle me-2"></i>Scooters
+                </button>
+                <button class="filter-btn" data-filter="events">
+                    <i class="fas fa-calendar-alt me-2"></i>Events
+                </button>
+                <button class="filter-btn" data-filter="customers">
+                    <i class="fas fa-users me-2"></i>Customers
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-grid">
+        <!-- Sample Gallery Items -->
+        <div class="gallery-item" data-category="scooters">
+            <a href="/images/gallery/scooter1.jpg" data-lightbox="gallery" 
+               data-title="SMG Pro Max - Premium Electric Scooter">
+                <img src="/images/gallery/scooter1.jpg" alt="SMG Pro Max"
+                     loading="lazy" decoding="async">
+                <div class="gallery-caption">
+                    <span class="badge bg-primary mb-2">New</span>
+                    <h5 class="mb-1">SMG Pro Max</h5>
+                    <p class="mb-0">Premium Electric Scooter</p>
+                </div>
+            </a>
+        </div>
+        <!-- Add more gallery items here -->
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const gallery = document.querySelector('.gallery-grid');
+
+            // Add loading state
+            gallery.classList.add('loading');
+
+            // Function to handle image loading
+            function handleImageLoad(item) {
+                return new Promise((resolve) => {
+                    const img = item.querySelector('img');
+                    if (img.complete) {
+                        resolve();
+                    } else {
+                        img.onload = () => resolve();
+                        img.onerror = () => resolve();
+                    }
+                });
+            }
+
+            // Initialize gallery
+            async function initGallery() {
+                // Wait for all images to load
+                await Promise.all([...galleryItems].map(handleImageLoad));
+                gallery.classList.remove('loading');
+
+                // Add initial animations
+                galleryItems.forEach((item, index) => {
+                    item.style.animationDelay = `${index * 0.1}s`;
+                    item.classList.add('show');
+                });
+            }
+
+            // Filter functionality with improved animation
+            function filterGallery(filter) {
+                galleryItems.forEach((item, index) => {
+                    // Reset animation
+                    item.style.animation = 'none';
+                    item.offsetHeight; // Trigger reflow
+
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                        item.style.animation = `fadeInUp 0.6s ease forwards ${index * 0.1}s`;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            // Event listeners for filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Apply filter
+                    filterGallery(btn.dataset.filter);
+                });
+            });
+
+            // Initialize Lightbox with error handling
+            try {
+                lightbox.option({
+                    'resizeDuration': 300,
+                    'wrapAround': true,
+                    'showImageNumberLabel': false,
+                    'fadeDuration': 300,
+                    'alwaysShowNavOnTouchDevices': true,
+                    'disableScrolling': true
+                });
+            } catch (error) {
+                console.error('Lightbox initialization failed:', error);
+            }
+
+            // Initialize gallery
+            initGallery();
+        });
+    </script>
+</body>
+</html>

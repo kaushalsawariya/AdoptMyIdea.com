@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | SMG Electric</title>
+    <%- include('partials/head-links') %>
+    <style>
+        :root {
+            --primary-color: #00d09c;
+            --secondary-color: #5367ff;
+            --dark-color: #1e2232;
+            --light-color: #ffffff;
+            --gray-color: #f8f9fa;
+        }
+
+        .about-section {
+            margin-top: 76px;
+            padding: 4rem 0;
+            min-height: calc(100vh - 76px);
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            position: relative;
+            z-index: 1; /* Ensure content is below navbar */
+        }
+
+        .about-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+            aspect-ratio: 16/9;
+            background: var(--gray-color);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card {
+            background: var(--light-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .ceo-section {
+            background-color: var(--gray-color);
+            padding: 4rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards 0.5s; /* Added delay */
+        }
+
+        .ceo-image-wrapper {
+            max-width: 400px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .ceo-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .ceo-image-wrapper:hover .ceo-image {
+            transform: scale(1.02);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                margin-top: 60px;
+                padding: 2rem 0;
+                min-height: auto;
+            }
+
+            .about-image {
+                aspect-ratio: 16/9;
+                margin: 1rem 0;
+            }
+
+            .about-image img {
+                height: auto;
+                max-height: 400px;
+            }
+
+            .ceo-image-wrapper {
+                max-width: 300px;
+            }
+
+            .ceo-image {
+                height: 400px;
+            }
+
+            .stat-card {
+                margin-bottom: 1rem;
+                min-height: 100px;
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .ceo-image-wrapper {
+                max-width: 250px;
+            }
+
+            .ceo-image {
+                height: 350px;
+            }
+        }
+
+        @media print {
+            .preloader {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .about-section {
+                margin-top: 60px;
+                padding-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex align-items-center justify-content-center" style="z-index: 1020;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <%- include('partials/navbar') %>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="fw-bold mb-4">About SMG Electric</h1>
+                    <p class="lead mb-4">SMG Electric Scooters Ltd, led by visionary CEO Saurav Mittal, represents the pinnacle of innovation in electric mobility.</p>
+                    <p class="text-muted mb-4">Founded on October 20, 2020, this flagship of the SMG Group has garnered international recognition, aligning with esteemed organizations. With headquarters at Manesar, Haryana, and a workforce of 500, SMG has made significant strides in the electric vehicle industry.</p>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="stat-card text-center">
+                                <div class="stat-number">₹500Cr</div>
+                                <p class="mb-0">Ongoing Projects</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card text-center">
+                                <div class="stat-number">₹10,000Cr</div>
+                                <p class="mb-0">Target Turnover</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="https://scontent.fluh1-1.fna.fbcdn.net/v/t39.30808-6/480919715_603243152471706_3190192322436652573_n.jpg?stp=dst-jpg_p180x540_tt6&_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=-5_f0dc0tekQ7kNvgFIcBF8&_nc_oc=AdmzwZD6cjBjqsxqfaSAh7bbmvfu2oVlA00RJL9vlCAjzu2Qs2BTG7ZO3GjLszkg7Gav7IsxllR8oSN044svWAqO&_nc_zt=23&_nc_ht=scontent.fluh1-1.fna&_nc_gid=YnmLCGGZene1a18dbpE8Lg&oh=00_AYHweXBnjQDCfMtxUndNm9oeVcBSYiUc59IFgnrwFEaCzA&oe=67EB02B5" 
+                             alt="SMG Headquarters" 
+                             class="img-fluid"
+                             width="1200"
+                             height="800"
+                             loading="lazy"
+                             >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEO Section -->
+    <section class="ceo-section">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-4 text-center">
+                    <div class="ceo-image-wrapper">
+                        <img src="images/logo/WhatsApp Image 2025-03-26 at 17.55.44_947e3c7a.jpg" 
+                             alt="Saurav Mittal" 
+                             class="ceo-image mb-4"
+                             width="400"
+                             height="500"
+                             loading="lazy"
+                             onerror="this.src='/images/fallback.jpg'">
+                    </div>
+                    <h3 class="h4 mb-2">Saurav Mittal</h3>
+                    <p class="text-primary mb-0">Founder & CEO</p>
+                </div>
+                <div class="col-lg-8">
+                    <div class="ps-lg-4">
+                        <h2 class="fw-bold mb-4">Leadership Vision</h2>
+                        <p class="text-muted mb-4">Under Saurav Mittal's guidance, SMG aspires to make electric mobility universally accessible by 2050. His journey from a business-oriented family to establishing SMG highlights his entrepreneurial spirit, significantly impacting the electric mobility sector and earning accolades like the Best Entrepreneur 2023.</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <span class="badge bg-primary p-2">Best Entrepreneur 2023</span>
+                            <span class="badge bg-success p-2">500+ Employees</span>
+                            <span class="badge bg-info p-2">International Recognition</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            const images = document.querySelectorAll('img');
+            const fallbackImage = '/images/fallback.jpg';
+            let loadedImages = 0;
+            const totalImages = images.length;
+
+            function hidePreloader() {
+                if (preloader) {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        document.body.style.overflow = 'auto'; // Enable scrolling
+                    }, 300);
+                }
+            }
+
+            function handleImageLoad() {
+                loadedImages++;
+                const progress = (loadedImages / totalImages) * 100;
+                if (loadedImages === totalImages) {
+                    hidePreloader();
+                }
+            }
+
+            // Add timeout for slow connections
+            const timeoutDuration = 5000; // 5 seconds
+            const loadTimeout = setTimeout(hidePreloader, timeoutDuration);
+
+            images.forEach(img => {
+                if (img.complete) {
+                    handleImageLoad();
+                } else {
+                    img.addEventListener('load', handleImageLoad);
+                    img.addEventListener('error', function() {
+                        console.warn(`Failed to load image: ${this.src}`);
+                        this.src = fallbackImage;
+                        handleImageLoad();
+                    });
+                }
+            });
+
+            // Clear timeout if all images load before timeout
+            if (loadedImages === totalImages) {
+                clearTimeout(loadTimeout);
+                hidePreloader();
+            }
+        });
+    </script>
+    <!-- Add this right before closing body tag -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMG Electric Scooters</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="/images/smg-logo.png" alt="SMG Logo" height="40" class="me-2">
+                <span class="brand-text">SMG</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#features">
+                            <i class="fas fa-star-of-life me-1"></i> Features
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-calculator me-1"></i> Calculator
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#savings">
+                                <i class="fas fa-piggy-bank me-2"></i> Savings Calculator
+                            </a></li>
+                            <li><a class="dropdown-item" href="#payment">
+                                <i class="fas fa-credit-card me-2"></i> Payment Calculator
+                            </a></li>
+                            <li><a class="dropdown-item" href="#range">
+                                <i class="fas fa-route me-2"></i> Range Calculator
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#contact">
+                            <i class="fas fa-envelope me-1"></i> Contact
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary rounded-pill px-4" href="#models">
+                            <i class="fas fa-shopping-cart me-1"></i> Shop Now
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <style>
+        :root {
+            --primary-color: #2962ff;
+            --secondary-color: #1565c0;
+            --dark-color: #1a1a1a;
+            --light-color: #ffffff;
+            --gray-color: #f8f9fa;
+            --nav-bg: #111827;
+            --nav-accent: #3b82f6;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: var(--nav-accent);
+        }
+
+        /* Hero section enhancement */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(41, 98, 255, 0.7)), url('/images/scooter-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to top, var(--light-color), transparent);
+        }
+
+        .card {
+            background-color: var(--secondary-color);
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .card-body {
+            color: var(--dark-color);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(41, 98, 255, 0.2);
+        }
+
+        .feature-card {
+            background-color: var(--light-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(41, 98, 255, 0.1);
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+        }
+
+        .card-title {
+            color: var(--primary-color);
+        }
+
+        section {
+            background-color: var(--light-color);
+        }
+
+        section:nth-child(even) {
+            background-color: var(--gray-color);
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .contact-form {
+            background-color: var(--light-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .form-control {
+            background-color: var(--light-color);
+            border: 1px solid rgba(0,0,0,0.1);
+            color: var(--dark-color);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .form-control::placeholder {
+            color: var(--dark-color);
+            opacity: 0.6;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(41, 98, 255, 0.25);
+        }
+
+        .dropdown-menu {
+            background-color: var(--nav-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            padding: 1rem 0;
+        }
+
+        .dropdown-item {
+            color: rgba(255, 255, 255, 0.85);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--nav-accent);
+            color: var(--light-color);
+            transform: translateX(5px);
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+        }
+
+        /* New responsive styles */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem !important;
+            }
+            .hero-section .lead {
+                font-size: 1.1rem;
+            }
+            .card-img-top {
+                height: 200px;
+                object-fit: cover;
+            }
+            .navbar-brand img {
+                height: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .feature-card {
+                margin-bottom: 20px;
+            }
+            .contact-form {
+                padding: 20px;
+            }
+        }
+
+        /* Enhanced card styles */
+        .card {
+            border: none;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced form styles */
+        .form-control {
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        /* Button enhancements */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+        }
+
+        /* Stats section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-color);
+            padding: 80px 0;
+            margin: 60px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Section headers */
+        .section-header {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .navbar {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(17, 24, 39, 0.98);
+            padding: 0.6rem 0;
+        }
+
+        .navbar-brand .brand-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--nav-accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar .btn-primary {
+            background: linear-gradient(135deg, var(--nav-accent), #2563eb);
+            border: none;
+            padding: 0.6rem 1.5rem;
+        }
+
+        .navbar .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
+        }
+
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+            filter: brightness(1.1) contrast(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+            border-color: var(--nav-accent);
+        }
+
+        /* Add these styles in your existing style tag */
+        .navbar-logo {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover .navbar-logo {
+            transform: scale(1.05);
+        }
+
+        .brand-text {
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 10px;
+        }
+
+        .navbar {
+            background-color: rgba(26, 35, 126, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(26, 35, 126, 0.98);
+            padding: 0.6rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .safety-card {
+            transition: all 0.3s ease;
+        }
+
+        .safety-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .safety-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(41, 98, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .model-card {
+            transition: all 0.3s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .model-image {
+            height: 300px;
+        }
+
+        .model-image img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .view-360 {
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .model-card:hover .view-360 {
+            opacity: 1;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .model-image {
+                height: 200px;
+            }
+        }
+
+        .safety-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(41, 98, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .showroom-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--light-color);
+        }
+
+        .model-image {
+            height: 200px; /* Reduced height */
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-color);
+        }
+
+        .model-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed from cover to contain */
+            padding: 1rem; /* Added padding around images */
+            transition: all 0.5s ease;
+        }
+
+        .brand-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            height: 30px; /* Reduced logo size */
+            width: auto;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .model-image {
+                height: 150px; /* Even smaller on mobile */
+            }
+            
+            .brand-logo {
+                height: 25px;
+            }
+        }
+
+        .showroom-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .showroom-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .model-image {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .model-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .showroom-card:hover .model-image img {
+            transform: scale(1.1);
+        }
+
+        .brand-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            height: 40px;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+        }
+
+        .showroom-card:hover .brand-logo {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .model-image {
+                height: 200px;
+            }
+            
+            .brand-logo {
+                height: 30px;
+            }
+        }
+
+        .battery-safety {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .safety-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(41, 98, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .safety-tip:hover .safety-icon {
+            transform: scale(1.1);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .safety-content {
+            flex: 1;
+        }
+
+        .battery-image-wrapper {
+            padding: 1rem;
+        }
+
+        .floating-card {
+            bottom: 2rem;
+            right: 2rem;
+            max-width: 250px;
+            z-index: 2;
+        }
+
+        @media (max-width: 991.98px) {
+            .safety-tips {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .battery-image-wrapper {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .floating-card {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .safety-tip {
+                margin-bottom: 2rem !important;
+            }
+
+            .safety-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .safety-icon i {
+                font-size: 1.25rem;
+            }
+
+            .floating-card {
+                max-width: 200px;
+                padding: 0.75rem !important;
+            }
+
+            .battery-image-wrapper {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .section-header {
+                margin-bottom: 2rem !important;
+            }
+
+            .safety-content h5 {
+                font-size: 1rem;
+            }
+
+            .safety-content p {
+                font-size: 0.875rem;
+            }
+
+            .floating-card {
+                display: none;
+            }
+        }
+
+        .partner-card {
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .partner-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-title {
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .list-unstyled li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .partner-logo {
+                height: 50px;
+            }
+            
+            .list-unstyled li {
+                font-size: 0.85rem;
+            }
+        }
+
+        .partner-logo {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem !important;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover .partner-logo {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .partner-logo {
+                height: 120px;
+            }
+        }
+
+        .partner-logo-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .partner-logo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .partner-logo {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+
+        .partner-logo-card:hover .partner-logo {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .partner-logo-card {
+                height: 120px;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navigation -->
+    <%- include('partials/navbar') %>
+
+    <!-- Hero Section -->
+    <section class="hero-section d-flex align-items-center">
+        <div class="container text-center hero-content">
+            <h1 class="display-1 fw-bold mb-4">Electrify Your Journey</h1>
+            <p class="lead mb-5">Experience the future of urban mobility with SMG's premium electric scooters</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#features" class="btn btn-primary btn-lg">Discover More</a>
+                <a href="#models" class="btn btn-outline-light btn-lg">View Models</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Why Choose SMG?</h2>
+                <p class="text-muted">Innovative features that set us apart</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-battery-full feature-icon mb-4"></i>
+                            <h3 class="h4 mb-3">Long Range</h3>
+                            <p class="text-muted">Up to 40km range on a single charge, perfect for daily commutes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-tachometer-alt feature-icon mb-4"></i>
+                            <h3 class="h4 mb-3">High Performance</h3>
+                            <p class="text-muted">Top speed of 25km/h with smooth acceleration control</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-shield-alt feature-icon mb-4"></i>
+                            <h3 class="h4 mb-3">Safety First</h3>
+                            <p class="text-muted">Advanced braking system and integrated LED lighting</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">5K+</div>
+                        <div>Happy Riders</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">40</div>
+                        <div>KM Range</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">25</div>
+                        <div>KM/H Speed</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div>Emissions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environmental Impact Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Environmental Impact</h2>
+                <p class="text-muted">Making a difference with every ride</p>
+            </div>
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6">
+                    <img src="https://media.istockphoto.com/id/1061166684/photo/environment-earth-day-in-the-hands-of-trees-growing-seedlings-bokeh-green-background-female.jpg?s=1024x1024&w=is&k=20&c=8zyDs_V1AC39EVpB2Vn79PrrkMjqcDCdxtNp0lXbtQs=" alt="Environmental Impact" class="img-fluid rounded-3 shadow">
+                </div>
+                <div class="col-md-6">
+                    <div class="ps-md-4">
+                        <h3 class="h4 mb-4">Reduce Your Carbon Footprint</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Zero direct emissions while riding
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Sustainable materials in construction
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Energy-efficient charging system
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Recyclable battery components
+                            </li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary mt-3">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Replace the Battery Safety Tips Section -->
+    <section class="battery-safety py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2 class="fw-bold">Battery Safety & Care</h2>
+                <p class="text-muted">Maximizing Performance & Longevity</p>
+            </div>
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="pe-lg-4">
+                        <h3 class="h4 mb-4">Essential Battery Care Tips</h3>
+                        <div class="safety-tips">
+                            <div class="safety-tip d-flex align-items-start mb-4">
+                                <div class="safety-icon me-3">
+                                    <i class="fas fa-thermometer-half fa-2x text-primary"></i>
+                                </div>
+                                <div class="safety-content">
+                                    <h5 class="mb-2">Temperature Control</h5>
+                                    <p class="text-muted mb-0">Store and operate between 10°C to 30°C for optimal performance and longevity.</p>
+                                </div>
+                            </div>
+                            <div class="safety-tip d-flex align-items-start mb-4">
+                                <div class="safety-icon me-3">
+                                    <i class="fas fa-charging-station fa-2x text-primary"></i>
+                                </div>
+                                <div class="safety-content">
+                                    <h5 class="mb-2">Smart Charging</h5>
+                                    <p class="text-muted mb-0">Use original chargers and avoid frequent partial charges.</p>
+                                </div>
+                            </div>
+                            <div class="safety-tip d-flex align-items-start mb-4">
+                                <div class="safety-icon me-3">
+                                    <i class="fas fa-shield-alt fa-2x text-primary"></i>
+                                </div>
+                                <div class="safety-content">
+                                    <h5 class="mb-2">Weather Protection</h5>
+                                    <p class="text-muted mb-0">Keep away from moisture and extreme weather conditions.</p>
+                                </div>
+                            </div>
+                            <div class="safety-tip d-flex align-items-start">
+                                <div class="safety-icon me-3">
+                                    <i class="fas fa-tools fa-2x text-primary"></i>
+                                </div>
+                                <div class="safety-content">
+                                    <h5 class="mb-2">Regular Maintenance</h5>
+                                    <p class="text-muted mb-0">Schedule periodic checks for optimal battery performance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="battery-image-wrapper position-relative">
+                        <img src="https://media.istockphoto.com/id/1326746475/photo/battery-charging-symbol-icon.jpg?s=1024x1024&w=is&k=20&c=pli4pyWN385SNyuZUwdx--0MI6GeyaqSbKNhctohFnU=" alt="Battery Safety" class="img-fluid rounded-4 shadow-lg">
+                        <div class="floating-card bg-white p-3 rounded-3 shadow position-absolute">
+                            <div class="d-flex align-items-center">
+                                <div class="battery-stat me-3">
+                                    <i class="fas fa-bolt text-warning fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Extended Battery Life</h6>
+                                    <p class="small text-muted mb-0">Up to 5 years with proper care</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Replace the Digital Showroom Section with this -->
+    <section class="digital-showroom py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Digital Showroom</h2>
+                <p class="text-muted">Experience premium electric mobility solutions</p>
+            </div>
+            <div class="showroom-slider position-relative">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="showroom-card card border-0 shadow-sm h-100">
+                            <div class="model-image">
+                                <img src="/images/sh1.avif" alt="Showroom Image" class="img-fluid">
+                                <div class="brand-overlay">
+                                    <img src="/images/Muthoot-Fincorp-NCD-Jan-2020-300x180.webp" alt="Brand Logo" class="brand-logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="showroom-card card border-0 shadow-sm h-100">
+                            <div class="model-image position-relative">
+                                <img src="/images/flipkart-logo-png-transparent.png" alt="Ola" class="img-fluid w-100">
+                                <div class="brand-overlay">
+                                    <img src="/images/ANI-20221004124645.jpg" alt="Ola Logo" class="brand-logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="showroom-card card border-0 shadow-sm h-100">
+                            <div class="model-image position-relative">
+                                <img src="/images/amazon-logo-1.png" alt="TVS" class="img-fluid w-100">
+                                <div class="brand-overlay">
+                                    <img src="/images/brands/tvs-logo.png" alt="TVS Logo" class="brand-logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="showroom-card card border-0 shadow-sm h-100">
+                            <div class="model-image position-relative">
+                                <img src="/images/models/hero.jpg" alt="Hero" class="img-fluid w-100">
+                                <div class="brand-overlay">
+                                    <img src="/images/brands/hero-logo.png" alt="Hero Logo" class="brand-logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="showroom-card card border-0 shadow-sm h-100">
+                            <div class="model-image position-relative">
+                                <img src="/images/models/bajaj.jpg" alt="Bajaj" class="img-fluid w-100">
+                                <div class="brand-overlay">
+                                    <img src="/images/brands/bajaj-logo.png" alt="Bajaj Logo" class="brand-logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="showroom-card card border-0 shadow-sm h-100">
+                            <div class="model-image position-relative">
+                                <img src="/images/models/yamaha.jpg" alt="Yamaha" class="img-fluid w-100">
+                                <div class="brand-overlay">
+                                    <img src="/images/brands/yamaha-logo.png" alt="Yamaha Logo" class="brand-logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Our Partners</h2>
+                <p class="text-muted">Financial & Insurance Partners</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Partner Logos -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="partner-logo-card">
+                        <img src="/images/partners/muthoot-logo.png" 
+                             alt="Muthoot Finance" 
+                             class="partner-logo"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x150?text=Muthoot+Finance'">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="partner-logo-card">
+                        <img src="/images/partners/bajaj-finance-logo.png" 
+                             alt="Bajaj Finance" 
+                             class="partner-logo"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x150?text=Bajaj+Finance'">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="partner-logo-card">
+                        <img src="/images/partners/hdfc-logo.png" 
+                             alt="HDFC Bank" 
+                             class="partner-logo"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x150?text=HDFC+Bank'">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="partner-logo-card">
+                        <img src="/images/partners/new-india-logo.png" 
+                             alt="New India Assurance" 
+                             class="partner-logo"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x150?text=New+India+Assurance'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Contact Us</h2>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form bg-white p-4 rounded">
+                        <!-- Your Web3Forms Access Key -->
+                        <input type="hidden" name="access_key" value="9ddc3387-5dad-4a68-8882-29098362dffd">
+                        
+                        <!-- Name Field -->
+                        <div class="mb-3">
+                            <input type="text" 
+                                   name="name" 
+                                   class="form-control" 
+                                   placeholder="Your Name" 
+                                   required>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <input type="email" 
+                                   name="email" 
+                                   class="form-control" 
+                                   placeholder="Your Email" 
+                                   required>
+                        </div>
+
+                        <!-- Phone Number Field -->
+                        <div class="mb-3">
+                            <input type="tel" 
+                                   name="phone" 
+                                   class="form-control" 
+                                   placeholder="Your Phone Number"
+                                   pattern="[0-9]{10}"
+                                   title="Please enter a valid 10-digit phone number"
+                                   required>
+                        </div>
+
+                        <!-- Message Field -->
+                        <div class="mb-3">
+                            <textarea name="message" 
+                                      class="form-control" 
+                                      rows="4" 
+                                      placeholder="Your Message" 
+                                      required></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </div>
+
+                        <!-- Success Message (Optional) -->
+                        <div class="mt-3" id="result"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add this script for form handling -->
+    <script>
+        const form = document.querySelector("form");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            result.innerHTML = "Please wait...";
+
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: json,
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    result.classList.add("text-success");
+                    result.innerHTML = json.message;
+                } else {
+                    result.classList.add("text-danger");
+                    result.innerHTML = json.message;
+                }
+            })
+            .catch((error) => {
+                result.innerHTML = "Something went wrong!";
+            })
+            .then(function() {
+                form.reset();
+                setTimeout(() => {
+                    result.innerHTML = "";
+                }, 3000);
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <%- include('partials/footer') %>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        // Add navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Initialize 360 view buttons
+        document.querySelectorAll('.view-360').forEach(button => {
+            button.addEventListener('click', function() {
+                // Add your 360 view implementation here
+                alert('360° view coming soon!');
+            });
+        });
+    </script>
+</body>
+</html>
