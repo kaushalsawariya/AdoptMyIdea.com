@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Ride Centers | SMG Electric</title>
+    <%- include('partials/head-links') %>
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        .test-ride-section {
+            margin-top: 76px;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--light-color) 0%, var(--gray-color) 100%);
+        }
+
+        .search-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .brand-badge {
+            background: rgba(41, 98, 255, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        .rating-number {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .table th {
+            font-weight: 600;
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        .book-ride-btn {
+            transition: all 0.3s ease;
+        }
+
+        .book-ride-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .test-ride-section {
+                padding: 2rem 0;
+            }
+            
+            .search-box {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <section class="test-ride-section">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="fw-bold mb-3">Book a Test Ride</h1>
+                    <p class="text-muted">Experience the future of mobility at our authorized test ride centers</p>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <select class="form-select" id="stateFilter">
+                            <option value="">All States</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="cityFilter">
+                            <option value="">All Cities</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="brandFilter">
+                            <option value="">All Brands</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="ratingFilter">
+                            <option value="">All Ratings</option>
+                            <option value="4.5">4.5+ Stars</option>
+                            <option value="4.0">4.0+ Stars</option>
+                        </select>
+                    </div>
+                </div>
+
+                <table id="testRideTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Center Details</th>
+                            <th>Location</th>
+                            <th>Contact</th>
+                            <th>Rating</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <!-- Add DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+    <script>
+        const testRideCenters = [
+            { id: 'T001', name: 'Green Drive Hub', brand: 'Tata Motors', state: 'Maharashtra', city: 'Mumbai', phone: '9876543210', email: 'greendrive@mumbai.com', rating: 4.6 },
+            { id: 'T002', name: 'Volt Experience Center', brand: 'Tesla', state: 'Karnataka', city: 'Bengaluru', phone: '9823456789', email: 'voltexp@bengaluru.com', rating: 4.8 },
+            { id: 'T003', name: 'Eco Motion Test Center', brand: 'Mahindra', state: 'Tamil Nadu', city: 'Chennai', phone: '9765432109', email: 'ecomotion@chennai.com', rating: 4.4 },
+            { id: 'T004', name: 'Swift EV Test Zone', brand: 'Hyundai', state: 'Gujarat', city: 'Ahmedabad', phone: '9786543210', email: 'swiftzone@ahmedabad.com', rating: 4.7 },
+            { id: 'T005', name: 'E-Ride Experience', brand: 'Ola Electric', state: 'West Bengal', city: 'Kolkata', phone: '9856743120', email: 'eride@kolkata.com', rating: 4.5 },
+            { id: 'T006', name: 'Charge & Go Test Center', brand: 'MG Motors', state: 'Delhi', city: 'New Delhi', phone: '9832567410', email: 'chargego@delhi.com', rating: 4.6 },
+            { id: 'T007', name: 'PowerPulse Test Track', brand: 'Hero Electric', state: 'Rajasthan', city: 'Jaipur', phone: '9873216540', email: 'powerpulse@jaipur.com', rating: 4.2 },
+            { id: 'T008', name: 'SmartDrive Test Hub', brand: 'BYD', state: 'Uttar Pradesh', city: 'Lucknow', phone: '9798456732', email: 'smartdrive@lucknow.com', rating: 4.7 },
+            { id: 'T009', name: 'Spark EV Ride Center', brand: 'Ather Energy', state: 'Punjab', city: 'Ludhiana', phone: '9845632178', email: 'sparkride@ludhiana.com', rating: 4.3 },
+            { id: 'T010', name: 'Rapid EV Test Zone', brand: 'Mercedes-Benz', state: 'Telangana', city: 'Hyderabad', phone: '9823456701', email: 'rapidev@hyderabad.com', rating: 4.9 },
+            { id: 'T011', name: 'Urban Motion Test Center', brand: 'Nissan', state: 'Madhya Pradesh', city: 'Bhopal', phone: '9732145678', email: 'urbanmotion@bhopal.com', rating: 4.2 },
+            { id: 'T012', name: 'NextGen Ride Hub', brand: 'Audi', state: 'Odisha', city: 'Bhubaneswar', phone: '9801234567', email: 'nextgen@bhubaneswar.com', rating: 4.5 },
+            { id: 'T013', name: 'Electric Thrill Zone', brand: 'BMW', state: 'Chhattisgarh', city: 'Raipur', phone: '9812374560', email: 'electricthrill@raipur.com', rating: 4.7 },
+            { id: 'T014', name: 'Bright Volt Test Track', brand: 'Volkswagen', state: 'Haryana', city: 'Gurgaon', phone: '9876543120', email: 'brightvolt@gurgaon.com', rating: 4.6 },
+            { id: 'T015', name: 'EcoDrive Test Circuit', brand: 'Honda', state: 'Assam', city: 'Guwahati', phone: '9798745623', email: 'ecodrive@guwahati.com', rating: 4.1 },
+            { id: 'T016', name: 'Green Auto Test Zone', brand: 'Renault', state: 'Kerala', city: 'Kochi', phone: '9812354678', email: 'greenauto@kochi.com', rating: 4.3 },
+            { id: 'T017', name: 'RevUp Electric Rides', brand: 'TVS', state: 'Uttarakhand', city: 'Dehradun', phone: '9821354789', email: 'revup@dehradun.com', rating: 4.0 },
+            { id: 'T018', name: 'Zenith EV Test Ride', brand: 'Bajaj', state: 'Bihar', city: 'Patna', phone: '9874561230', email: 'zenith@patna.com', rating: 4.4 },
+            { id: 'T019', name: 'Smart Charge Test Zone', brand: 'Yamaha', state: 'Himachal Pradesh', city: 'Shimla', phone: '9821345672', email: 'smartcharge@shimla.com', rating: 4.3 },
+            { id: 'T020', name: 'EV Express Ride Center', brand: 'Citroën', state: 'Jharkhand', city: 'Ranchi', phone: '9845632102', email: 'evexpress@ranchi.com', rating: 4.3 }
+        ];
+
+        $(document).ready(function() {
+            const table = $('#testRideTable').DataTable({
+                data: testRideCenters,
+                responsive: true,
+                columns: [
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                                <div class="fw-bold mb-1">${row.name}</div>
+                                <span class="brand-badge">${row.brand}</span>
+                            `;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `<div>${row.city}, ${row.state}</div>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                                <div><i class="fas fa-phone me-2"></i>${row.phone}</div>
+                                <div><i class="fas fa-envelope me-2"></i>${row.email}</div>
+                            `;
+                        }
+                    },
+                    {
+                        data: 'rating',
+                        render: function(data, type, row) {
+                            const stars = '⭐'.repeat(Math.floor(row.rating));
+                            return `
+                                <div class="rating-stars">${stars}</div>
+                                <div class="rating-number">${row.rating}/5</div>
+                            `;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                                <button class="btn btn-primary btn-sm book-ride-btn" 
+                                        onclick="bookTestRide('${row.id}')">
+                                    Book Test Ride
+                                </button>
+                            `;
+                        }
+                    }
+                ]
+            });
+
+            // Populate filters
+            const states = [...new Set(testRideCenters.map(center => center.state))].sort();
+            const brands = [...new Set(testRideCenters.map(center => center.brand))].sort();
+
+            states.forEach(state => {
+                $('#stateFilter').append(`<option value="${state}">${state}</option>`);
+            });
+
+            brands.forEach(brand => {
+                $('#brandFilter').append(`<option value="${brand}">${brand}</option>`);
+            });
+
+            // Filter handlers
+            $('#stateFilter, #cityFilter, #brandFilter, #ratingFilter').on('change', function() {
+                table.draw();
+            });
+
+            // Custom filtering function
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                const center = testRideCenters[dataIndex];
+                const selectedState = $('#stateFilter').val();
+                const selectedCity = $('#cityFilter').val();
+                const selectedBrand = $('#brandFilter').val();
+                const selectedRating = parseFloat($('#ratingFilter').val());
+
+                if (selectedState && center.state !== selectedState) return false;
+                if (selectedCity && center.city !== selectedCity) return false;
+                if (selectedBrand && center.brand !== selectedBrand) return false;
+                if (selectedRating && center.rating < selectedRating) return false;
+
+                return true;
+            });
+        });
+
+        // Update cities when state is selected
+        $('#stateFilter').on('change', function() {
+            const selectedState = $(this).val();
+            const cities = selectedState ? 
+                [...new Set(testRideCenters.filter(c => c.state === selectedState).map(c => c.city))].sort() :
+                [...new Set(testRideCenters.map(c => c.city))].sort();
+
+            $('#cityFilter').html('<option value="">All Cities</option>');
+            cities.forEach(city => {
+                $('#cityFilter').append(`<option value="${city}">${city}</option>`);
+            });
+        });
+
+        function bookTestRide(centerId) {
+            const center = testRideCenters.find(c => c.id === centerId);
+            if (center) {
+                window.location.href = `/book-test-ride?center=${centerId}`;
+            }
+        }
+    </script>
+</body>
+</html>

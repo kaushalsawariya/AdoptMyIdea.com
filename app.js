@@ -47,6 +47,27 @@ app.get('/career', (req, res) => {
     });
 });
 
+// Job application routes
+app.get('/job-application', (req, res) => {
+    res.render('job-application', {
+        title: 'Job Application | SMG Electric'
+    });
+});
+
+// Internship application routes
+app.get('/internship-application', (req, res) => {
+    res.render('internship-application', {
+        title: 'Internship Application | SMG Electric'
+    });
+});
+
+// Application success route
+app.get('/application-success', (req, res) => {
+    res.render('application-success', {
+        title: 'Application Submitted | SMG Electric'
+    });
+});
+
 // Legal routes
 app.get('/privacy', (req, res) => {
     res.render('privacy');
@@ -72,7 +93,22 @@ app.get('/test-ride', (req, res) => {
     });
 });
 
+// Add test ride booking form route
+app.get('/book-test-ride', (req, res) => {
+    const centerId = req.query.center;
+    res.render('book-test-ride-form', {
+        title: 'Book Test Ride | SMG Electric',
+        centerId: centerId
+    });
+});
+
+app.get('/dealers', (req, res) => {
+    res.render('dealers', {
+        title: 'Find a Dealer | SMG Electric'
+    });
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT,'0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 });

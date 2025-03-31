@@ -3,7 +3,7 @@
         <a class="navbar-brand d-flex align-items-center" href="/">
             <img src="/images/logo/SMG-1.png" alt="SMG Logo" class="navbar-logo">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -13,7 +13,6 @@
                         <i class="fas fa-home me-1"></i> Home
                     </a>
                 </li>
-                <!-- Removed Features button -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         <i class="fas fa-calculator me-1"></i> Calculators
@@ -46,10 +45,23 @@
                         <i class="fas fa-info-circle me-1"></i> About
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">
-                        <i class="fas fa-envelope me-1"></i> Contact
+                <!-- Replace Contact with Dealers & Test Rides dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-map-marker-alt me-1"></i> Locate Us
                     </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="/dealers">
+                                <i class="fas fa-store me-2"></i> Find a Dealer
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/test-ride">
+                                <i class="fas fa-motorcycle me-2"></i> Book Test Ride
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -95,20 +107,28 @@
 
 .dropdown-menu {
     background: var(--light-color);
-    border: 1px solid var(--gray-color);
+    border: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-radius: 12px;
     padding: 0.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .dropdown-item {
     color: var(--text-color);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .dropdown-item:hover {
-    background: var(--primary-color);
-    color: var(--light-color);
+    background-color: rgba(26, 35, 126, 0.1);
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
 }
 
 .navbar-toggler {
@@ -158,6 +178,19 @@
 
     .dropdown-item {
         color: var(--text-color);
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdown-menu {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .dropdown-item {
+        padding: 0.5rem 1rem 0.5rem 2rem;
     }
 }
 

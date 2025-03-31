@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Application | SMG Electric</title>
+    <%- include('partials/head-links') %>
+    <style>
+        .page-header {
+            background: linear-gradient(rgba(26, 35, 126, 0.95), rgba(26, 35, 126, 0.85)),
+                        url('/images/careers/intern-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 8rem 0 4rem;
+            margin-top: 76px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: white;
+            transform: skewY(-3deg);
+        }
+
+        .application-form {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-blue));
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(26,35,126,0.15);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .application-meta {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .meta-item {
+            padding: 0.75rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .meta-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .meta-item i {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-right: 1rem;
+        }
+
+        .stipend-badge {
+            background: var(--accent-blue);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .skills-checkbox {
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .skills-checkbox:hover {
+            border-color: var(--primary-color);
+            background: #f8f9fa;
+        }
+
+        .btn-primary {
+            padding: 0.75rem 2.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26,35,126,0.2);
+        }
+
+        .form-section {
+            padding: 2rem;
+            border-radius: 15px;
+            background: #fff;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 6rem 0 3rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .meta-item {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <!-- Header Section -->
+    <section class="page-header text-white">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/career">Careers</a></li>
+                    <li class="breadcrumb-item active">Internship Application</li>
+                </ol>
+            </nav>
+            <h1 class="display-4 fw-bold mb-3">Join Our Internship Program</h1>
+            <p class="lead mb-4">Learn and grow with industry experts at SMG Electric</p>
+            
+            <div class="application-meta">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="meta-item">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Department: <%= locals.department || 'Multiple Departments' %></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Location: Multiple Locations Available</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Duration: 3-6 Months</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span class="stipend-badge">Stipend: ₹10,000 - ₹15,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="application-form py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-container">
+                        <h2 class="text-center mb-4">Internship Application Form</h2>
+                        
+                        <form id="internshipForm" action="/submit-internship" method="POST" enctype="multipart/form-data">
+                            <!-- Personal Information -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Personal Information</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label required">Full Name</label>
+                                        <input type="text" class="form-control" name="fullName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Email Address</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Phone Number</label>
+                                        <input type="tel" class="form-control" name="phone" pattern="[0-9]{10}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Educational Background -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Educational Background</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Educational Qualification</label>
+                                        <select class="form-select" name="qualification" required>
+                                            <option value="">Select Qualification</option>
+                                            <option value="BTech">BTech</option>
+                                            <option value="BCA">BCA</option>
+                                            <option value="Diploma">Diploma</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Experience (if any)</label>
+                                        <input type="number" class="form-control" name="experience" min="0" value="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Internship Preferences -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Internship Preferences</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Department</label>
+                                        <select class="form-select" name="department" required id="departmentSelect">
+                                            <option value="">Select Department</option>
+                                            <option value="web">Web & Programming</option>
+                                            <option value="cad">CAD & Modeling</option>
+                                            <option value="marketing">Marketing</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Preferred Location</label>
+                                        <select class="form-select" name="location" required>
+                                            <option value="">Select Location</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Mohali">Mohali</option>
+                                            <option value="Panchkula">Panchkula</option>
+                                            <option value="Work From Home">Work From Home</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label required">Skills</label>
+                                        <div id="skillsCheckboxes" class="row g-2">
+                                            <!-- Skills will be populated dynamically -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Portfolio & Resume -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Portfolio & Resume</h4>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label">Portfolio Link</label>
+                                        <input type="url" class="form-control" name="portfolio" 
+                                               placeholder="https://your-portfolio.com">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label required">Upload Resume</label>
+                                        <input type="file" class="form-control" name="resume" accept=".pdf" required>
+                                        <div class="small text-muted mt-1">PDF format only, max size: 5MB</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Information -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Additional Information</h4>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label required">Why do you want this internship?</label>
+                                        <textarea class="form-control" name="motivation" rows="4" required
+                                                placeholder="Tell us about your motivation and what you hope to learn"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Terms & Submit -->
+                            <div class="text-center">
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        I confirm that all the information provided is accurate
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary px-5">
+                                    Submit Application
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        const skillsByDepartment = {
+            web: ['Web Designing', 'Python', 'C++'],
+            cad: ['CAD', 'AutoCAD', 'CATIA'],
+            marketing: ['Canva', 'Digital Marketing', 'PowerPoint']
+        };
+
+        document.getElementById('departmentSelect').addEventListener('change', function() {
+            const skills = skillsByDepartment[this.value] || [];
+            const container = document.getElementById('skillsCheckboxes');
+            
+            container.innerHTML = skills.map(skill => `
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="skills[]" value="${skill}" id="skill_${skill}">
+                        <label class="form-check-label" for="skill_${skill}">${skill}</label>
+                    </div>
+                </div>
+            `).join('');
+        });
+
+        document.getElementById('internshipForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            showLoading();
+
+            try {
+                // Create FormData object
+                const formData = new FormData(this);
+                
+                // File validation
+                const fileInput = document.querySelector('input[type="file"]');
+                if (fileInput.files[0]) {
+                    if (fileInput.files[0].size > 5 * 1024 * 1024) {
+                        throw new Error('File size exceeds 5MB limit');
+                    }
+                }
+
+                // Get selected skills
+                const selectedSkills = [];
+                document.querySelectorAll('input[name="skills[]"]:checked').forEach(checkbox => {
+                    selectedSkills.push(checkbox.value);
+                });
+
+                // Create data object for Google Sheets
+                const data = {
+                    timestamp: new Date().toISOString(),
+                    fullName: formData.get('fullName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    qualification: formData.get('qualification'),
+                    experience: formData.get('experience'),
+                    department: formData.get('department'),
+                    location: formData.get('location'),
+                    skills: selectedSkills.join(', '),
+                    portfolio: formData.get('portfolio'),
+                    motivation: formData.get('motivation')
+                };
+
+                // Send to Google Sheet
+                await fetch(
+                    'https://script.google.com/macros/s/AKfycbzEzH9tFE2kziYe0ikcWZsZtfIJkdY5wpcrnr9lx4H58OI2OVawLLsf1NnRV5nK5rh_Xg/exec',
+                    {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(data).toString()
+                    }
+                );
+
+                // Show success message
+                showSuccess();
+                
+                // Clear form
+                this.reset();
+                
+                // Redirect to success page
+                setTimeout(() => {
+                    window.location.href = '/application-success';
+                }, 1500);
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                showError(error.message);
+            } finally {
+                hideLoading();
+            }
+        });
+
+        function showLoading() {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+            submitBtn.disabled = true;
+        }
+
+        function hideLoading() {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = 'Submit Application';
+            submitBtn.disabled = false;
+        }
+
+        function showSuccess() {
+            const successMsg = document.createElement('div');
+            successMsg.className = 'alert alert-success mt-3';
+            successMsg.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-check-circle me-2"></i>
+                    Application submitted successfully! Redirecting...
+                </div>
+            `;
+            document.querySelector('.form-container').appendChild(successMsg);
+        }
+
+        function showError(message) {
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'alert alert-danger mt-3';
+            errorMsg.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    ${message || 'Error submitting application. Please try again.'}
+                </div>
+            `;
+            document.querySelector('.form-container').appendChild(errorMsg);
+        }
+    </script>
+</body>
+</html>

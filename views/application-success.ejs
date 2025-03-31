@@ -1,0 +1,123 @@
+.ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Submitted | SMG Electric</title>
+    <%- include('partials/head-links') %>
+    <style>
+        .success-section {
+            margin-top: 76px;
+            min-height: calc(100vh - 76px);
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--light-color) 0%, var(--gray-color) 100%);
+        }
+
+        .success-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-blue));
+        }
+
+        .success-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+            animation: scaleIn 0.5s ease;
+        }
+
+        .btn-group {
+            margin-top: 2rem;
+        }
+
+        .btn-group .btn {
+            margin: 0.5rem;
+            min-width: 150px;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-message {
+            animation: fadeIn 0.5s ease 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <section class="success-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="success-card">
+                        <div class="success-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="success-message">
+                            <h2 class="mb-4">Application Submitted Successfully!</h2>
+                            <p class="text-muted mb-4">
+                                Thank you for applying to SMG Electric. We have received your application 
+                                and our team will review it shortly. You will receive a confirmation 
+                                email with further details.
+                            </p>
+                            <div class="btn-group">
+                                <a href="/" class="btn btn-outline-primary">
+                                    <i class="fas fa-home me-2"></i>Back to Home
+                                </a>
+                                <a href="/career" class="btn btn-primary">
+                                    <i class="fas fa-briefcase me-2"></i>View More Opportunities
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

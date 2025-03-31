@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application | SMG Electric</title>
+    <%- include('partials/head-links') %>
+    <style>
+        .application-form {
+            margin-top: 76px;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--light-color) 0%, var(--gray-color) 100%);
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-color);
+        }
+
+        .required::after {
+            content: "*";
+            color: red;
+            margin-left: 4px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .upload-info {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .page-header {
+            background: linear-gradient(rgba(26, 35, 126, 0.9), rgba(26, 35, 126, 0.9)),
+                        url('/images/careers/header-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 6rem 0 4rem;
+            margin-top: 76px;
+            margin-bottom: -76px;
+        }
+
+        .application-meta {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-item i {
+            width: 24px;
+            margin-right: 0.5rem;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: white;
+        }
+
+        .spinner-border {
+            width: 1rem;
+            height: 1rem;
+            vertical-align: middle;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .is-invalid {
+            border-color: #dc3545 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <section class="page-header text-white">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/career">Careers</a></li>
+                    <li class="breadcrumb-item active">Job Application</li>
+                </ol>
+            </nav>
+            <h1 class="display-4 fw-bold mb-3">Join Our Team</h1>
+            <p class="lead mb-0">Take the first step towards an exciting career at SMG Electric</p>
+            
+            <div class="application-meta">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="meta-item">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Position: <%= locals.position || 'Multiple Positions' %></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Location: Multiple Locations Available</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Type: Full Time</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Required: <%= locals.qualification || 'BTech/BCA/Graduate' %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="application-form py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-container">
+                        <h2 class="text-center mb-4">Job Application Form</h2>
+
+                        <div class="success-message" id="successMessage">
+                            Application submitted successfully!
+                        </div>
+                        <div class="error-message" id="errorMessage">
+                            Error submitting application. Please try again.
+                        </div>
+                        
+                        <form id="applicationForm" action="/submit-application" method="POST" enctype="multipart/form-data">
+                            <!-- Personal Information -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Personal Information</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label required">Full Name</label>
+                                        <input type="text" class="form-control" name="fullName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Email</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Phone Number</label>
+                                        <input type="tel" class="form-control" name="phone" pattern="[0-9]{10}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Position Details -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Position Details</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Position Applying For</label>
+                                        <select class="form-select" name="position" required>
+                                            <option value="">Select Position</option>
+                                            <option value="Web Designer">Web Designer</option>
+                                            <option value="Circuit Designer">Circuit Designer</option>
+                                            <option value="Senior Officer L4">Senior Officer L4</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Preferred Location</label>
+                                        <select class="form-select" name="location" required>
+                                            <option value="">Select Location</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Mohali">Mohali</option>
+                                            <option value="Panchkula">Panchkula</option>
+                                            <option value="Work From Home">Work From Home</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Qualification -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Educational Qualification</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Highest Qualification</label>
+                                        <select class="form-select" name="qualification" required>
+                                            <option value="">Select Qualification</option>
+                                            <option value="BTech">BTech</option>
+                                            <option value="BCA">BCA</option>
+                                            <option value="Graduate">Graduate</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label required">Experience (Years)</label>
+                                        <input type="number" class="form-control" name="experience" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Resume Upload -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Resume Upload</h4>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label required">Upload Resume</label>
+                                        <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" required>
+                                        <div class="upload-info mt-2">
+                                            Accepted formats: PDF, DOC, DOCX (Max size: 5MB)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Information -->
+                            <div class="mb-4">
+                                <h4 class="section-title">Additional Information</h4>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label">Additional Notes</label>
+                                        <textarea class="form-control" name="additionalInfo" rows="4" 
+                                                placeholder="Tell us about your relevant skills and experience"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Terms & Submit -->
+                            <div class="text-center">
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        I confirm that all the information provided is accurate
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary px-5">
+                                    Submit Application
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            showLoading();
+
+            try {
+                // Create FormData object
+                const formData = new FormData(this);
+                
+                // Convert to object
+                const data = {};
+                formData.forEach((value, key) => {
+                    if (key !== 'resume') { // Exclude file from URL params
+                        data[key] = value;
+                    }
+                });
+
+                // Add timestamp
+                data.timestamp = new Date().toISOString();
+
+                // File validation
+                const fileInput = document.querySelector('input[type="file"]');
+                if (fileInput.files[0]) {
+                    if (fileInput.files[0].size > 5 * 1024 * 1024) {
+                        throw new Error('File size exceeds 5MB limit');
+                    }
+                }
+
+                // Send to Google Sheet
+                await fetch(
+                    'https://script.google.com/macros/s/AKfycbz_wam1Aui9cN4D2bRmqh4lwtagtRvLfyDPes8jdEMdC2Fvx74EUY5RTpobgCnGLoULdQ/exec',
+                    {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(data).toString()
+                    }
+                );
+
+                // Show success state
+                showSuccess();
+
+                // Clear form
+                this.reset();
+
+                // Redirect after delay
+                await redirectWithDelay();
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                showError(error.message);
+            } finally {
+                hideLoading();
+            }
+        });
+
+        function showLoading() {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+            submitBtn.disabled = true;
+        }
+
+        function hideLoading() {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = 'Submit Application';
+            submitBtn.disabled = false;
+        }
+
+        function showSuccess() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            successMsg.innerHTML = `
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="spinner-border text-success me-2"></div>
+                    <span>Application submitted successfully! Redirecting...</span>
+                </div>
+            `;
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Fade out form
+            const formContainer = document.querySelector('.form-container');
+            formContainer.style.transition = 'opacity 0.5s ease';
+            formContainer.style.opacity = '0.5';
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.textContent = message || 'Error submitting application. Please try again.';
+            errorMsg.style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        async function redirectWithDelay() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    window.location.href = '/application-success';
+                    resolve();
+                }, 2000);
+            });
+        }
+
+        // Add form validation
+        const form = document.getElementById('applicationForm');
+        form.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
+            field.addEventListener('invalid', (e) => {
+                e.preventDefault();
+                field.classList.add('is-invalid');
+            });
+
+            field.addEventListener('input', () => {
+                if (field.validity.valid) {
+                    field.classList.remove('is-invalid');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
