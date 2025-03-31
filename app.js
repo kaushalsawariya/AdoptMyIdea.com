@@ -71,6 +71,31 @@ app.use(async (req, res, next) => {
     }
 });
 
+// Add this after your existing middleware
+const requireAuth = async (req, res, next) => {
+    try {
+        const token = req.cookies.jwt;
+        if (!token) {
+            return res.redirect('/login');
+        }
+        
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'this_is_secret');
+        const user = await userModel.findOne({ email: decoded.email }).exec();
+        
+        if (!user) {
+            res.clearCookie('jwt');
+            return res.redirect('/login');
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        console.error('Auth middleware error:', error);
+        res.clearCookie('jwt');
+        res.redirect('/login');
+    }
+};
+
 // Routes
 const calculatorRoutes = {
     'ice-vs-ev': 'ICE vs EV Calculator',
@@ -109,21 +134,21 @@ app.get('/career', (req, res) => {
 });
 
 // Job application routes
-app.get('/job-application', (req, res) => {
+app.get('/job-application', requireAuth, (req, res) => {
     res.render('job-application', {
         title: 'Job Application | SMG Electric'
     });
 });
 
 // Internship application routes
-app.get('/internship-application', (req, res) => {
+app.get('/internship-application', requireAuth,(req, res) => {
     res.render('internship-application', {
         title: 'Internship Application | SMG Electric'
     });
 });
 
 // Application success route
-app.get('/application-success', (req, res) => {
+app.get('/application-success',requireAuth, (req, res) => {
     res.render('application-success', {
         title: 'Application Submitted | SMG Electric'
     });
@@ -268,14 +293,14 @@ app.get('/logout', (req, res) => {
 });
 
 // Add this route with your other routes
-app.get('/test-ride', (req, res) => {
+app.get('/test-ride',requireAuth, (req, res) => {
     res.render('test-ride', {
         title: 'Book Test Ride | SMG Electric'
     });
 });
 
 // Add test ride booking form route
-app.get('/book-test-ride', (req, res) => {
+app.get('/book-test-ride',requireAuth, (req, res) => {
     const centerId = req.query.center;
     res.render('book-test-ride-form', {
         title: 'Book Test Ride | SMG Electric',
