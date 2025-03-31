@@ -7,6 +7,8 @@ const userModel = require('./models/user');
 const rateLimit = require('express-rate-limit');
 const { check, validationResult } = require('express-validator');
 const cookieParser = require('cookie-parser'); // Add this with your other requires at the top
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 // Middleware
 app.use(express.json());
@@ -314,6 +316,7 @@ app.get('/dealers', (req, res) => {
         title: 'Find a Dealer | SMG Electric'
     });
 });
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
