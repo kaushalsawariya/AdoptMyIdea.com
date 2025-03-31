@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const userModel = require('./models/user');
+const rateLimit = require('express-rate-limit');
+const { check, validationResult } = require('express-validator');
+const cookieParser = require('cookie-parser'); // Add this with your other requires at the top
 
 // Middleware
 app.use(express.json());
@@ -9,6 +15,61 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static('public'));
+app.use(cookieParser()); // Add this with your other middleware
+
+const limiter = rateLimit({ // Add this after other middleware
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
+
+app.use('/signup', limiter);
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit each IP to 5 failed attempts per window
+    message: 'Too many login attempts from this IP, please try again after 15 minutes'
+});
+
+app.use('/login', loginLimiter);
+
+// Add validation middleware
+const validateSignup = [
+    check('name').trim().isLength({ min: 2 })
+        .withMessage('Name must be at least 2 characters long'),
+    check('email').isEmail().normalizeEmail()
+        .withMessage('Must be a valid email address'),
+    check('password').isLength({ min: 6 })
+        .withMessage('Password must be at least 6 characters long'),
+    check('confirmPassword').custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error('Password confirmation does not match password');
+        }
+        return true;
+    })
+];
+
+const validateLogin = [
+    check('email').isEmail().normalizeEmail(),
+    check('password').not().isEmpty()
+];
+
+// Add this after your middleware setup
+app.use(async (req, res, next) => {
+    try {
+        const token = req.cookies.jwt;
+        if (token) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'this_is_secret');
+            const user = await userModel.findOne({ email: decoded.email }).exec();
+            res.locals.user = user;
+        } else {
+            res.locals.user = null;
+        }
+        next();
+    } catch (error) {
+        res.locals.user = null;
+        next();
+    }
+});
 
 // Routes
 const calculatorRoutes = {
@@ -81,9 +142,129 @@ app.get('/terms', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 });
+app.post('/login', validateLogin, async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('login', {
+                error: 'Validation failed',
+                errors: errors.array()
+            });
+        }
+
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).render('login', {
+                error: 'Please provide both email and password'
+            });
+        }
+
+        const user = await userModel.findOne({ email }).exec();
+        if (!user) {
+            return res.status(401).render('login', {
+                error: 'Invalid email or password'
+            });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).render('login', {
+                error: 'Invalid email or password'
+            });
+        }
+
+        const token = jwt.sign({ email }, process.env.JWT_SECRET || 'this_is_secret', {
+            expiresIn: '24h'
+        });
+        res.cookie("jwt", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production'
+        });
+
+        res.redirect('/');
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).render('login', {
+            error: 'An error occurred during login'
+        });
+    }
+});
 
 app.get('/signup', (req, res) => {
     res.render('signup');
+});
+app.post('/signup', validateSignup, async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('signup', {
+                error: 'Validation failed',
+                errors: errors.array(),
+                values: req.body // Preserve form values
+            });
+        }
+
+        const { name, email, password } = req.body;
+
+        // Check for strong password
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+        if (!passwordRegex.test(password)) {
+            return res.status(400).render('signup', {
+                error: 'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character',
+                values: req.body
+            });
+        }
+
+        if (!name || !email || !password) {
+            return res.status(400).render('signup', {
+                error: 'Please provide all required fields',
+                values: req.body
+            });
+        }
+
+        // Check if user already exists
+        const existingUser = await userModel.findOne({ email }).exec();
+        if (existingUser) {
+            return res.status(400).render('signup', {
+                error: 'Email already registered',
+                values: req.body
+            });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+
+        const newUser = new userModel({
+            name,
+            email,
+            password: hash
+        });
+
+        await newUser.save();
+
+        const token = jwt.sign({ email }, process.env.JWT_SECRET || 'this_is_secret', {
+            expiresIn: '24h'
+        });
+        res.cookie("jwt", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production'
+        });
+
+        res.redirect('/login');
+    } catch (error) {
+        console.error('Signup error:', error);
+        res.status(500).render('signup', {
+            error: 'An error occurred during signup',
+            values: req.body
+        });
+    }
+});
+
+// Add this with your other auth routes
+app.get('/logout', (req, res) => {
+    res.clearCookie('jwt');
+    res.redirect('/login');
 });
 
 // Add this route with your other routes
@@ -105,6 +286,15 @@ app.get('/book-test-ride', (req, res) => {
 app.get('/dealers', (req, res) => {
     res.render('dealers', {
         title: 'Find a Dealer | SMG Electric'
+    });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('error', {
+        title: 'Error',
+        message: 'Something went wrong!'
     });
 });
 
