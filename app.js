@@ -171,8 +171,9 @@ app.post('/login', validateLogin, async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            req.flash('error', 'Invalid email or password format');
             return res.status(400).render('login', {
-                error: 'Validation failed',
+                error: 'Please check your credentials',
                 errors: errors.array()
             });
         }
@@ -224,9 +225,9 @@ app.post('/signup', validateSignup, async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).render('signup', {
-                error: 'Validation failed',
+                error: 'Please fix the following errors:',
                 errors: errors.array(),
-                values: req.body // Preserve form values
+                values: req.body
             });
         }
 
@@ -252,7 +253,7 @@ app.post('/signup', validateSignup, async (req, res) => {
         const existingUser = await userModel.findOne({ email }).exec();
         if (existingUser) {
             return res.status(400).render('signup', {
-                error: 'Email already registered',
+                error: 'This email is already registered',
                 values: req.body
             });
         }
