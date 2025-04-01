@@ -8,7 +8,14 @@ const rateLimit = require('express-rate-limit');
 const { check, validationResult } = require('express-validator');
 const cookieParser = require('cookie-parser'); // Add this with your other requires at the top
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
+const mongoose = require('mongoose');
+const cors= require('cors');
+const bodyParser = require('body-parser');
+
+mongoose.connect('mongodb://localhost:27017/smg-electric')
+.then(() => {
+    console.log('Connected to MongoDB');
+})
 
 // Middleware
 app.use(express.json());
@@ -18,6 +25,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static('public'));
 app.use(cookieParser()); // Add this with your other middleware
+app.use(cors());
+app.use(bodyParser.json());
 
 const limiter = rateLimit({ // Add this after other middleware
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -25,6 +34,25 @@ const limiter = rateLimit({ // Add this after other middleware
 });
 
 app.use('/signup', limiter);
+
+
+
+
+// to locate ev charging stations
+
+app.get("/stations", async (req, res) => {
+    try {
+        const stations = await Station.find();
+        res.json(stations);
+    } catch (err) {
+        res.status(500).json({ error: "Server error" });
+    }
+});
+app.get('/find-charging-station', (req, res) => {
+    res.render('index', {
+        title: 'Find Charging Station | SMG Electric'
+    });
+});
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -293,6 +321,11 @@ app.post('/signup', validateSignup, async (req, res) => {
 app.get('/logout', (req, res) => {
     res.clearCookie('jwt');
     res.redirect('/login');
+});
+
+
+app.get("/", (req, res) => {
+    res.render("index");
 });
 
 // Add this route with your other routes

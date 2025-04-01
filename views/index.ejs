@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Charging Station Locator</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        #map {
+            height: 500px;
+            width: 100%;
+            margin: 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 15px 0;
+            font-size: 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        button i {
+            margin-right: 8px;
+        }
+        
+        .header-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+        }
+        
+        .map-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <h2><i class="fas fa-charging-station"></i> Find Nearest EV Charging Station</h2>
+            <button onclick="getUserLocation()"><i class="fas fa-location-arrow"></i> Find My Location</button>
+        </div>
+        
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 EV Charging Station Locator | Powered by OpenStreetMap</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        let map = L.map('map').setView([28.6139, 77.2090], 12); // Default center: Delhi
+        let stations = [];
+        let routingControl;
+        let userMarker;
+        let userLat, userLon;
+    
+        // Add tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    
+        // Load the stations from your backend
+        async function loadStations() {
+            try {
+                let response = await fetch("/stations");
+                stations = await response.json();
+                stations.forEach(station => {
+                    L.marker([station.latitude, station.longitude])
+                        .addTo(map)
+                        .bindPopup(`<b>${station.name}</b>`); // Removed station.address
+                });
+            } catch (err) {
+                console.error("Error loading stations:", err);
+            }
+        }
+    
+        // Find the nearest station based on the user's location
+        function findNearestStation(userLat, userLon) {
+            let nearest = null;
+            let minDistance = Number.MAX_VALUE;
+    
+            stations.forEach(station => {
+                let distance = getDistance(userLat, userLon, station.latitude, station.longitude);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearest = station;
+                }
+            });
+    
+            return nearest;
+        }
+    
+        // Haversine formula to calculate distance
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of Earth in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c; // Distance in km
+        }
+    
+        // Draw route from user to nearest station
+        function drawRoute(userLat, userLon, stationLat, stationLon) {
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+    
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(userLat, userLon),
+                    L.latLng(stationLat, stationLon)
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+        }
+    
+        // Start tracking the user's location
+        function startTracking() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(position => {
+                    userLat = position.coords.latitude;
+                    userLon = position.coords.longitude;
+    
+                    map.setView([userLat, userLon], 14); // Update map view to new position
+    
+                    if (!userMarker) {
+                        // Add user marker only once
+                        userMarker = L.marker([userLat, userLon]).addTo(map)
+                            .bindPopup("You are here")
+                            .openPopup();
+                    } else {
+                        // Update user marker position
+                        userMarker.setLatLng([userLat, userLon]);
+                    }
+    
+                    // Find the nearest station and draw the route
+                    let nearestStation = findNearestStation(userLat, userLon);
+                    if (nearestStation) {
+                        drawRoute(userLat, userLon, nearestStation.latitude, nearestStation.longitude);
+                    }
+                }, (error) => {
+                    console.error("Error getting location:", error);
+                }, {
+                    enableHighAccuracy: true,
+                    maximumAge: 10000,
+                    timeout: 10000
+                });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        }
+    
+        // Get user location
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    userLat = position.coords.latitude;
+                    userLon = position.coords.longitude;
+    
+                    map.setView([userLat, userLon], 14);
+    
+                    if (!userMarker) {
+                        userMarker = L.marker([userLat, userLon]).addTo(map)
+                            .bindPopup("You are here")
+                            .openPopup();
+                    } else {
+                        userMarker.setLatLng([userLat, userLon]);
+                    }
+    
+                    let nearestStation = findNearestStation(userLat, userLon);
+                    if (nearestStation) {
+                        drawRoute(userLat, userLon, nearestStation.latitude, nearestStation.longitude);
+                    }
+                }, (error) => {
+                    console.error("Error getting location:", error);
+                }, {
+                    enableHighAccuracy: true,
+                    maximumAge: 10000,
+                    timeout: 10000
+                });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        }
+    
+        // Initialize the map and start tracking
+        async function init() {
+            await loadStations();
+            startTracking();
+        }
+    
+        init();
+    </script>
+    
+</body>
+</html>
