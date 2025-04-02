@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -7,15 +8,19 @@ const userModel = require('./models/user');
 const rateLimit = require('express-rate-limit');
 const { check, validationResult } = require('express-validator');
 const cookieParser = require('cookie-parser'); // Add this with your other requires at the top
-const crypto = require('crypto');
+console.log("MONGO_URI:",process.env.MONGO_URI)
 const mongoose = require('mongoose');
 const cors= require('cors');
 const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost:27017/smg-electric')
+mongoose.connect(process.env.MONGO_URI)
 .then(() => {
-    console.log('Connected to MongoDB');
+    console.log('✅ Connected to MongoDB');
 })
+.catch((err) => {
+    console.error('❌ MongoDB Connection Error:', err);
+});
+
 
 // Middleware
 app.use(express.json());
