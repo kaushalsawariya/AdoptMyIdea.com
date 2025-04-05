@@ -7,13 +7,13 @@ const jwt = require('jsonwebtoken');
 const userModel = require('./models/user');
 const rateLimit = require('express-rate-limit');
 const { check, validationResult } = require('express-validator');
-const cookieParser = require('cookie-parser'); // Add this with your other requires at the top
-console.log("MONGO_URI:",process.env.MONGO_URI)
+const cookieParser = require('cookie-parser'); // Add this with your other requires at the 
 const mongoose = require('mongoose');
 const cors= require('cors');
 const bodyParser = require('body-parser');
 
 mongoose.connect(process.env.MONGO_URI)
+
 .then(() => {
     console.log('✅ Connected to MongoDB');
 })
@@ -28,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public'));
 app.use(express.static('public'));
 app.use(cookieParser()); // Add this with your other middleware
 app.use(cors());
@@ -93,7 +94,7 @@ app.use(async (req, res, next) => {
     try {
         const token = req.cookies.jwt;
         if (token) {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'this_is_secret');
+            const decoded = jwt.verify(token, process.env.JWT_SECRET );
             const user = await userModel.findOne({ email: decoded.email }).exec();
             res.locals.user = user;
         } else {
@@ -114,7 +115,7 @@ const requireAuth = async (req, res, next) => {
             return res.redirect('/login');
         }
         
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'this_is_secret');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET );
         const user = await userModel.findOne({ email: decoded.email }).exec();
         
         if (!user) {
@@ -235,7 +236,7 @@ app.post('/login', validateLogin, async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ email }, process.env.JWT_SECRET || 'this_is_secret', {
+        const token = jwt.sign({ email }, process.env.JWT_SECRET , {
             expiresIn: '24h'
         });
         res.cookie("jwt", token, {
@@ -304,7 +305,7 @@ app.post('/signup', validateSignup, async (req, res) => {
 
         await newUser.save();
 
-        const token = jwt.sign({ email }, process.env.JWT_SECRET || 'this_is_secret', {
+        const token = jwt.sign({ email }, process.env.JWT_SECRET , {
             expiresIn: '24h'
         });
         res.cookie("jwt", token, {

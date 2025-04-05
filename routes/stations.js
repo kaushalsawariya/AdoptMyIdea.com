@@ -35,16 +35,5 @@ router.get("/nearest", async (req, res) => {
     }
 });
 
-// Add a new EV station
-router.post("/", async (req, res) => {
-    try {
-        const { name, latitude, longitude, address } = req.body;
-        const newStation = new Station({ name, latitude, longitude, address });
-        await newStation.save();
-        res.status(201).json(newStation);
-    } catch (error) {
-        res.status(500).json({ message: "Error adding station" });
-    }
-});
 
 module.exports = router;

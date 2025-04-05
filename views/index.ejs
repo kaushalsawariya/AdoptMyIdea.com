@@ -111,12 +111,14 @@
         </div>
     </div>
 
+    <!-- Add data.js before other scripts -->
+    <script src="/js/data.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
     <script>
-        let map = L.map('map').setView([28.6139, 77.2090], 12); // Default center: Delhi
+        let map = L.map('map').setView([28.6139, 77.2090], 12);
         let stations = [];
         let routingControl;
         let userMarker;
@@ -127,19 +129,18 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
     
-        // Load the stations from your backend
-        async function loadStations() {
-            try {
-                let response = await fetch("/stations");
-                stations = await response.json();
-                stations.forEach(station => {
-                    L.marker([station.latitude, station.longitude])
-                        .addTo(map)
-                        .bindPopup(`<b>${station.name}</b>`); // Removed station.address
-                });
-            } catch (err) {
-                console.error("Error loading stations:", err);
-            }
+        // Modified loadStations function to use local data
+        function loadStations() {
+            stations = chargingStations; // Use the data from data.js
+            stations.forEach(station => {
+                const marker = L.marker([station.latitude, station.longitude])
+                    .addTo(map)
+                    .bindPopup(`
+                        <div style="text-align: center;">
+                            <h3>${station.name}</h3>
+                        </div>
+                    `);
+            });
         }
     
         // Find the nearest station based on the user's location
@@ -254,9 +255,9 @@
             }
         }
     
-        // Initialize the map and start tracking
-        async function init() {
-            await loadStations();
+        // Modified init function
+        function init() {
+            loadStations(); // No need for async/await anymore
             startTracking();
         }
     
