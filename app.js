@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs'); // Make sure it's bcryptjs not bcrypt
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user');
 const rateLimit = require('express-rate-limit');
