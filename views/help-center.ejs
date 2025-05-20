@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center | Startup Ecosystem Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2a44;
+        }
+
+        .accordion-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-button:hover {
+            background-color: #e3e8f0;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1rem;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+            padding: 1rem;
+        }
+
+        .accordion-content p, .accordion-content ol, .accordion-content ul {
+            margin: 0.5rem 0;
+        }
+
+        .accordion-content.active p, .accordion-content.active ol, .accordion-content.active ul {
+            margin: 1rem 0;
+        }
+
+        .accordion-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-button i.fa-minus {
+            transform: rotate(180deg);
+        }
+
+        .search-highlight {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding-left: 0.5rem;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .video-thumbnail img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .video-thumbnail .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .video-thumbnail:hover .play-button {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .search-bar {
+            margin-bottom: 2rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Include Navbar -->
+    <!-- <%- include('partials/navbar') %> -->
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div class="container mx-auto px-4 py-16 text-center">
+            <h1 class="text-4xl font-bold mb-4">How Can We Help You?</h1>
+            <p class="text-xl mb-8">Find answers to common questions about our startup ecosystem platform</p>
+            
+            <!-- Search Bar -->
+            <div class="max-w-2xl mx-auto">
+                <div class="relative">
+                    <input type="text" class="w-full p-4 pl-12 rounded-lg shadow-md text-gray-800" placeholder="Search for answers...">
+                    <div class="absolute left-4 top-4">
+                        <i class="fas fa-search text-gray-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Categories -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <!-- For Founders -->
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="text-blue-600 text-4xl mb-4">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">For Founders</h3>
+                <p class="text-gray-600 mb-4">Learn how to list your startup, find investors, and connect with mentors.</p>
+                <a href="#founder-section" class="text-blue-600 hover:underline">Explore guides <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            
+            <!-- For Investors -->
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="text-green-600 text-4xl mb-4">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">For Investors & Acquirers</h3>
+                <p class="text-gray-600 mb-4">Discover how to find deals, conduct due diligence, and manage investments.</p>
+                <a href="#investor-section" class="text-green-600 hover:underline">Explore guides <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            
+            <!-- For Service Providers -->
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="text-purple-600 text-4xl mb-4">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">For Service Providers</h3>
+                <p class="text-gray-600 mb-4">Find out how to offer your expertise, services, and grow your network.</p>
+                <a href="#service-provider-section" class="text-purple-600 hover:underline">Explore guides <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+        </div>
+
+        <!-- Frequently Asked Questions -->
+        <h2 class="text-3xl font-bold mb-8 text-center" id="faq">Frequently Asked Questions</h2>
+        
+        <!-- FAQ Accordion -->
+        <div class="max-w-3xl mx-auto mb-12">
+            <!-- Founder FAQs -->
+            <div id="founder-section" class="mb-8">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-600">For Founders</h3>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">How do I create a startup listing?</span>
+                        <i class="fas fa-plus text-blue-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>To create a startup listing:</p>
+                        <ol class="list-decimal ml-5 mt-2">
+                            <li>Log in to your account and navigate to "My Dashboard"</li>
+                            <li>Click on "Create New Listing"</li>
+                            <li>Fill out all required information about your startup</li>
+                            <li>Add financial data, metrics, and company documents</li>
+                            <li>Set your funding goals or acquisition price</li>
+                            <li>Submit for review (our team will verify details within 48 hours)</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">What fundraising options are available?</span>
+                        <i class="fas fa-plus text-blue-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>Our platform supports multiple funding structures:</p>
+                        <ul class="list-disc ml-5 mt-2">
+                            <li><strong>Equity investment:</strong> Sell 5-50% of your company</li>
+                            <li><strong>Full acquisition:</strong> Sell your entire business</li>
+                            <li><strong>Revenue sharing:</strong> Offer a percentage of future revenue</li>
+                            <li><strong>SAFE notes:</strong> Simple Agreement for Future Equity</li>
+                            <li><strong>Convertible notes:</strong> Debt that converts to equity</li>
+                        </ul>
+                        <p class="mt-2">You can configure your preferred options when creating your listing.</p>
+                    </div>
+                </div>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">How does co-founder matching work?</span>
+                        <i class="fas fa-plus text-blue-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>Our AI-powered co-founder matching system works by:</p>
+                        <ol class="list-decimal ml-5 mt-2">
+                            <li>Creating a detailed profile with your skills, experience, and preferences</li>
+                            <li>Specifying the skills and experience you're looking for in a co-founder</li>
+                            <li>Our algorithm will suggest compatible matches</li>
+                            <li>You can connect directly through our messaging system</li>
+                            <li>We provide co-founder agreement templates to formalize partnerships</li>
+                        </ol>
+                        <p class="mt-2">Premium members get priority matching and advanced filters.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Investor FAQs -->
+            <div id="investor-section" class="mb-8">
+                <h3 class="text-2xl font-semibold mb-4 text-green-600">For Investors & Acquirers</h3>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">How do I find investment opportunities?</span>
+                        <i class="fas fa-plus text-green-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>To discover investment opportunities:</p>
+                        <ol class="list-decimal ml-5 mt-2">
+                            <li>Use our advanced search filters to find startups by industry, revenue, location, etc.</li>
+                            <li>Set up alerts for new listings that match your criteria</li>
+                            <li>Browse curated collections in our "Featured Deals" section</li>
+                            <li>Join investor syndicates to access exclusive opportunities</li>
+                            <li>Connect with our deal scouts who can recommend matches</li>
+                        </ol>
+                        <p class="mt-2">Premium investors get early access to high-demand listings.</p>
+                    </div>
+                </div>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">What due diligence tools are available?</span>
+                        <i class="fas fa-plus text-green-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>Our platform offers comprehensive due diligence tools:</p>
+                        <ul class="list-disc ml-5 mt-2">
+                            <li><strong>Financial verification:</strong> Third-party validated revenue and profit reports</li>
+                            <li><strong>Founder background checks:</strong> Verify employment history and credentials</li>
+                            <li><strong>Technical assessment:</strong> Code quality and architecture review</li>
+                            <li><strong>Market analysis:</strong> Competitive landscape and market potential</li>
+                            <li><strong>Customer interviews:</strong> Facilitated access to current customers</li>
+                            <li><strong>Document vault:</strong> Secure access to all company documents</li>
+                        </ul>
+                        <p class="mt-2">Premium investors can request custom due diligence assistance.</p>
+                    </div>
+                </div>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">How do syndication and co-investments work?</span>
+                        <i class="fas fa-plus text-green-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>To participate in syndication and co-investments:</p>
+                        <ol class="list-decimal ml-5 mt-2">
+                            <li>Create or join an existing syndicate from your dashboard</li>
+                            <li>Set your investment parameters (min/max amounts, sectors of interest)</li>
+                            <li>Collaborate with other investors on due diligence</li>
+                            <li>Pool resources for larger investments</li>
+                            <li>Manage your syndicate portfolio through our tracking tools</li>
+                        </ol>
+                        <p class="mt-2">We provide all necessary legal documentation for syndicate formation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Service Provider FAQs -->
+            <div id="service-provider-section">
+                <h3 class="text-2xl font-semibold mb-4 text-purple-600">For Service Providers</h3>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">How can I offer mentorship services?</span>
+                        <i class="fas fa-plus text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>To offer mentorship services:</p>
+                        <ol class="list-decimal ml-5 mt-2">
+                            <li>Create a detailed mentor profile highlighting your expertise and experience</li>
+                            <li>Set up your availability calendar for mentoring sessions</li>
+                            <li>Determine your pricing model (hourly rate or equity-based)</li>
+                            <li>Specify areas of specialization (marketing, fundraising, product, etc.)</li>
+                            <li>Create content for your knowledge base to showcase expertise</li>
+                        </ol>
+                        <p class="mt-2">Verified mentors with high ratings get featured in our mentor directory.</p>
+                    </div>
+                </div>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">How do I list my professional services?</span>
+                        <i class="fas fa-plus text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>To list your professional services:</p>
+                        <ol class="list-decimal ml-5 mt-2">
+                            <li>Create a service provider profile from your dashboard</li>
+                            <li>Specify your service categories (development, marketing, legal, etc.)</li>
+                            <li>List specific offerings with detailed descriptions</li>
+                            <li>Set pricing (fixed-price projects or hourly rates)</li>
+                            <li>Upload portfolio examples and client testimonials</li>
+                            <li>Indicate availability and response times</li>
+                        </ol>
+                        <p class="mt-2">You can offer startup-specific packages to attract more clients.</p>
+                    </div>
+                </div>
+                
+                <div class="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center">
+                        <span class="font-medium">Can I take equity as payment for services?</span>
+                        <i class="fas fa-plus text-purple-600"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p>Yes, our platform supports equity-for-service arrangements:</p>
+                        <ul class="list-disc ml-5 mt-2">
+                            <li>You can specify if you accept equity as full or partial payment</li>
+                            <li>Set your equity-to-cash conversion rates</li>
+                            <li>Access our standardized equity-for-service agreement templates</li>
+                            <li>Track your startup equity portfolio in your dashboard</li>
+                            <li>Get notifications about important milestones for startups you hold equity in</li>
+                        </ul>
+                        <p class="mt-2">We recommend consulting with a financial advisor before accepting equity payments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Still Need Help Section -->
+        <div class="bg-gray-100 p-8 rounded-lg text-center">
+            <h3 class="text-2xl font-bold mb-4">Still Need Help?</h3>
+            <p class="text-lg mb-6">Our support team is ready to assist you with any questions or concerns.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center">
+                    <i class="fas fa-comment-dots mr-2"></i> Live Chat
+                </a>
+                <a href="#" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors inline-flex items-center">
+                    <i class="fas fa-envelope mr-2"></i> Email Support
+                </a>
+                <a href="#" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors inline-flex items-center">
+                    <i class="fas fa-book mr-2"></i> Documentation
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Tutorials Section -->
+    <div class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Video Tutorials</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Video 1 -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-700 flex items-center justify-center">
+                        <img src="/api/placeholder/400/225" alt="Getting Started Tutorial" class="w-full">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center">
+                                <i class="fas fa-play text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Getting Started Guide</h3>
+                        <p class="text-gray-400">Learn the basics of our platform in this comprehensive tutorial.</p>
+                    </div>
+                </div>
+                
+                <!-- Video 2 -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-700 flex items-center justify-center">
+                        <img src="/api/placeholder/400/225" alt="Creating Perfect Pitch" class="w-full">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center">
+                                <i class="fas fa-play text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Creating the Perfect Pitch</h3>
+                        <p class="text-gray-400">Tips and tricks for making your startup listing stand out to investors.</p>
+                    </div>
+                </div>
+                
+                <!-- Video 3 -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-700 flex items-center justify-center">
+                        <img src="/api/placeholder/400/225" alt="Due Diligence Process" class="w-full">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center">
+                                <i class="fas fa-play text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">The Due Diligence Process</h3>
+                        <p class="text-gray-400">A walkthrough of our platform's due diligence tools and workflows.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium">
+                    View All Tutorials <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Contact Us -->
+    <%- include('partials/contactUs') %>
+
+    <!-- Include Footer -->
+    <%- include('partials/footer') %>
+
+    <script>
+        // Accordion functionality
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                content.classList.toggle('active');
+                
+                // Change icon
+                const icon = button.querySelector('i');
+                if (content.classList.contains('active')) {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                } else {
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                }
+            });
+        });
+
+        // Search functionality (basic implementation)
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                // Simple search implementation
+                document.querySelectorAll('.accordion-button').forEach(button => {
+                    const text = button.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        button.parentElement.style.backgroundColor = '#f0f9ff';
+                        const content = button.nextElementSibling;
+                        content.classList.add('active');
+                        
+                        // Change icon
+                        const icon = button.querySelector('i');
+                        icon.classList.remove('fa-plus');
+                        icon.classList.add('fa-minus');
+                        
+                        // Scroll to the element
+                        button.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        button.parentElement.style.backgroundColor = '';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

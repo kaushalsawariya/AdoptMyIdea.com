@@ -68,6 +68,8 @@ const loginLimiter = rateLimit({
 
 app.use('/login', loginLimiter);
 
+
+
 // Add validation middleware
 const validateSignup = [
     check('name').trim().isLength({ min: 2 })
@@ -144,17 +146,8 @@ app.get('/', (req, res) => {
     res.render("landing");
 });
 
-// Calculator routes
-Object.keys(calculatorRoutes).forEach(route => {
-    app.get(`/calculators/${route}`, (req, res) => {
-        res.render(route, { title: calculatorRoutes[route] });
-    });
-});
 
-// Static pages
-app.get('/gallery', (req, res) => {
-    res.render('gallery', { title: 'Gallery' });
-});
+
 
 app.get('/about', (req, res) => {
     res.render('about', { 
@@ -189,15 +182,11 @@ app.get('/application-success',requireAuth, (req, res) => {
         title: 'Application Submitted | SMG Electric'
     });
 });
-
-// Legal routes
-app.get('/privacy', (req, res) => {
-    res.render('privacy');
+app.get('/startup-listing', (req, res) => {
+    res.render('startup-listing-form'); // Renders the EJS form
 });
 
-app.get('/terms', (req, res) => {
-    res.render('terms');
-});
+
 
 // Auth Routes
 app.get('/login', (req, res) => {
@@ -334,13 +323,20 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+// Buyers page
+app.get('/find-startups', (req, res) => {
+    res.render('buyers'); 
+});
+
 // Add this route with your other routes
-app.get('/test-ride',requireAuth, (req, res) => {
+app.get('/test-ride', (req, res) => {
     res.render('test-ride', {
         title: 'Book Test Ride | SMG Electric'
     });
 });
-
+app.get('/help-center', (req, res) => {
+    res.render('help-center');
+});
 // Add test ride booking form route
 app.get('/book-test-ride',requireAuth, (req, res) => {
     const centerId = req.query.center;
@@ -356,6 +352,38 @@ app.get('/dealers', (req, res) => {
     });
 });
 
+app.get('/startups', (req, res) => {
+    const startups = [
+        {
+            id: 1,
+            name: "TechHive Innovations",
+            logo: "/images/startups/techhive.jpg",
+            description: "Revolutionizing the way businesses use AI to solve problems.",
+            industry: "AI",
+            stage: "Seed",
+            funding: "$500,000"
+        },
+        {
+            id: 2,
+            name: "HealthifyMe",
+            logo: "/images/startups/healthifyme.jpg",
+            description: "Empowering individuals to lead healthier lives with personalized plans.",
+            industry: "HealthTech",
+            stage: "Series A",
+            funding: "$2,000,000"
+        },
+        {
+            id: 3,
+            name: "EduSpark",
+            logo: "/images/startups/eduspark.jpg",
+            description: "Transforming education with innovative EdTech solutions.",
+            industry: "EdTech",
+            stage: "MVP",
+            funding: "Open to discussion"
+        }
+    ];
+    res.render('startup-listing', { startups });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="/images/logo/SMG-1.png" alt="SMG Logo" class="navbar-logo">
+            <img src="/images/logo/Screenshot%202025-05-07%20163204.png" alt="AdoptMyIdea Logo" class="navbar-logo">
+            
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -9,61 +10,67 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="fas fa-home me-1"></i> Home
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-calculator me-1"></i> Calculators
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="/calculators/ice-vs-ev">
-                                <i class="fas fa-gas-pump me-2"></i> ICE vs EV Calculator
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="/calculators/tax-saver">
-                                <i class="fas fa-piggy-bank me-2"></i> Tax Saver
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="/calculators/emi">
-                                <i class="fas fa-coins me-2"></i> EMI Calculator
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/gallery">
-                        <i class="fas fa-images me-1"></i> Gallery
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/about">
                         <i class="fas fa-info-circle me-1"></i> About
                     </a>
                 </li>
-                <!-- Locate Us dropdown with added Find Charging Station option -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-map-marker-alt me-1"></i> Locate Us
+                    <a class="nav-link dropdown-toggle" href="#" id="pricingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-tags me-1"></i> Pricing
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" aria-labelledby="pricingDropdown">
                         <li>
-                            <a class="dropdown-item" href="/dealers">
-                                <i class="fas fa-store me-2"></i> Find a Dealer
+                            <a class="dropdown-item" href="/find-startups">
+                                <i class="fas fa-user me-1"></i> Buyer
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/test-ride">
-                                <i class="fas fa-motorcycle me-2"></i> Book Test Ride
+                            <a class="dropdown-item" href="/startups">
+                                <i class="fas fa-user-tie me-1"></i> Seller
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-book me-1"></i> Resources
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="resourcesDropdown">
+                        <li>
+                            <a class="dropdown-item" href="/help-center">
+                                <i class="fas fa-life-ring me-1"></i> Help Center
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/find-charging-station">
-                                <i class="fas fa-charging-station me-2"></i> Find Charging Station
+                            <a class="dropdown-item" href="/blog-to-grow">
+                                <i class="fas fa-blog me-1"></i> Blog to Grow
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="saasValuationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-chart-line me-1"></i> Free SaaS Valuation
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="saasValuationDropdown">
+                        <li>
+                            <a class="dropdown-item" href="/signup">
+                                <i class="fas fa-user-plus me-1"></i> Join Now (Signup)
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/login">
+                                <i class="fas fa-sign-in-alt me-1"></i> Login
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/help-center">
+                                <i class="fas fa-life-ring me-1"></i> Help Center
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/help-center">
+                                <i class="fas fa-life-ring me-1"></i> Help Center
                             </a>
                         </li>
                     </ul>

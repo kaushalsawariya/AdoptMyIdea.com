@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMG Electric Scooters</title>
+    <title>AdoptMyIdea.com</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -865,6 +865,19 @@
                 max-height: 60px;
             }
         }
+
+        .project-logo-card {
+            height: 200px; /* Fixed height for the card */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-logo {
+            max-width: 100%; /* Ensure the image fits within the card */
+            max-height: 100%; /* Ensure the image fits within the card */
+            object-fit: contain; /* Maintain aspect ratio and prevent distortion */
+        }
     </style>
 </head>
 <body>
@@ -874,8 +887,10 @@
     <!-- Hero Section -->
     <section class="hero-section d-flex align-items-center">
         <div class="container text-center hero-content">
-            <h1 class="display-1 fw-bold mb-4">Electrify Your Journey</h1>
-            <p class="lead mb-5">Experience the future of urban mobility with SMG's premium electric scooters</p>
+            <h1 class="display-1 fw-bold mb-4">AdoptMyIdea.com</h1>
+            <h3>Fueling Startups. Connecting Visionaries.</h3>
+            <p class="lead mb-5">Showcase your startup. Attract investors. Find co-founders.
+                One platform. Endless possibilities.</p>
             <div class="d-flex justify-content-center gap-3">
                 <a href="#features" class="btn btn-primary btn-lg">Discover More</a>
                 <a href="#models" class="btn btn-outline-light btn-lg">View Models</a>
@@ -883,413 +898,225 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-5">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Why Choose SMG?</h2>
-                <p class="text-muted">Innovative features that set us apart</p>
+    <!-- Features Section --><section id="features" class="py-5">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Why Choose AdoptMyIdea?</h2>
+            <p class="text-muted">Smart features built for founders, investors, and mentors</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-lightbulb feature-icon mb-4"></i>
+                        <h3 class="h4 mb-3">Startup Listings</h3>
+                        <p class="text-muted">Pitch your venture with financials, traction, and growth insights</p>
+                    </div>
+                </div>
             </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card feature-card h-100">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-battery-full feature-icon mb-4"></i>
-                            <h3 class="h4 mb-3">Long Range</h3>
-                            <p class="text-muted">Up to 40km range on a single charge, perfect for daily commutes</p>
-                        </div>
+            <div class="col-md-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-handshake feature-icon mb-4"></i>
+                        <h3 class="h4 mb-3">Investor & Co-Founder Matching</h3>
+                        <p class="text-muted">Connect with investors, mentors, and co-founders using smart matching tools</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card feature-card h-100">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-tachometer-alt feature-icon mb-4"></i>
-                            <h3 class="h4 mb-3">High Performance</h3>
-                            <p class="text-muted">Top speed of 80km/h with smooth acceleration control</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card feature-card h-100">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-shield-alt feature-icon mb-4"></i>
-                            <h3 class="h4 mb-3">Safety First</h3>
-                            <p class="text-muted">Advanced braking system and integrated LED lighting</p>
-                        </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-cogs feature-icon mb-4"></i>
+                        <h3 class="h4 mb-3">Legal & Growth Tools</h3>
+                        <p class="text-muted">Access term sheet generators, cap table management, and collaboration spaces</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">5K+</div>
-                        <div>Happy Riders</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">40</div>
-                        <div>KM Range</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">25</div>
-                        <div>KM/H Speed</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">0</div>
-                        <div>Emissions</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Environmental Impact Section -->
+    <!-- Startup Growth Section -->
     <section class="py-5">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Environmental Impact</h2>
-                <p class="text-muted">Making a difference with every ride</p>
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Startup Growth Made Easy</h2>
+            <p class="text-muted">Empowering founders at every stage of their journey</p>
+        </div>
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6">
+                <!-- Replace the image with a video -->
+                <video class="img-fluid rounded-3 shadow"  autoplay muted loop playsinline>
+                    <source src="images/geneal/213813_tiny.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
-            <div class="row g-4 align-items-center">
-                <div class="col-md-6">
-                    <img src="https://media.istockphoto.com/id/1061166684/photo/environment-earth-day-in-the-hands-of-trees-growing-seedlings-bokeh-green-background-female.jpg?s=1024x1024&w=is&k=20&c=8zyDs_V1AC39EVpB2Vn79PrrkMjqcDCdxtNp0lXbtQs=" alt="Environmental Impact" class="img-fluid rounded-3 shadow">
-                </div>
-                <div class="col-md-6">
-                    <div class="ps-md-4">
-                        <h3 class="h4 mb-4">Reduce Your Carbon Footprint</h3>
-                        <ul class="list-unstyled">
-                            <li class="mb-3">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                Zero direct emissions while riding
-                            </li>
-                            <li class="mb-3">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                Sustainable materials in construction
-                            </li>
-                            <li class="mb-3">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                Energy-efficient charging system
-                            </li>
-                            <li class="mb-3">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                Recyclable battery components
-                            </li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary mt-3">Learn More</a>
-                    </div>
+            <div class="col-md-6">
+                <div class="ps-md-4">
+                    <h3 class="h4 mb-4">How We Help Startups Grow</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Pitch-ready startup listings for visibility and funding
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            AI-powered co-founder & investor matching
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Access to mentors, freelancers, and legal experts
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Built-in tools for collaboration and growth tracking
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Easy equity, SAFE, and revenue-sharing deal options
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Get Started</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Replace the Battery Safety Tips Section -->
-    <section class="battery-safety py-5 bg-light">
+    
+    <!--  Tips Section -->
+    <section class="adoptmyidea-benefits py-5 bg-light">
         <div class="container">
             <div class="section-header text-center mb-5">
-                <h2 class="fw-bold">Battery Safety & Care</h2>
-                <p class="text-muted">Maximizing Performance & Longevity</p>
+                <h2 class="fw-bold">AdoptMyIdea.com: Empowering Innovators & Investors</h2>
+                <p class="text-muted">A trusted platform connecting brilliant minds with bold investors</p>
             </div>
             <div class="row g-4 align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
                     <div class="pe-lg-4">
-                        <h3 class="h4 mb-4">Essential Battery Care Tips</h3>
+                        <h3 class="h4 mb-4">Why Investors & Startups Trust Us</h3>
                         <div class="safety-tips">
                             <div class="safety-tip d-flex align-items-start mb-4">
                                 <div class="safety-icon me-3">
-                                    <i class="fas fa-thermometer-half fa-2x text-primary"></i>
+                                    <i class="fas fa-lightbulb fa-2x text-primary"></i>
                                 </div>
                                 <div class="safety-content">
-                                    <h5 class="mb-2">Temperature Control</h5>
-                                    <p class="text-muted mb-0">Store and operate between 10°C to 30°C for optimal performance and longevity.</p>
+                                    <h5 class="mb-2">Validated Startup Ideas</h5>
+                                    <p class="text-muted mb-0">Only vetted and original ideas are listed—ensuring quality and innovation.</p>
                                 </div>
                             </div>
                             <div class="safety-tip d-flex align-items-start mb-4">
                                 <div class="safety-icon me-3">
-                                    <i class="fas fa-charging-station fa-2x text-primary"></i>
+                                    <i class="fas fa-users fa-2x text-primary"></i>
                                 </div>
                                 <div class="safety-content">
-                                    <h5 class="mb-2">Smart Charging</h5>
-                                    <p class="text-muted mb-0">Use original chargers and avoid frequent partial charges.</p>
+                                    <h5 class="mb-2">Founder Visibility</h5>
+                                    <p class="text-muted mb-0">Entrepreneurs gain direct exposure to active investors and mentors.</p>
                                 </div>
                             </div>
                             <div class="safety-tip d-flex align-items-start mb-4">
                                 <div class="safety-icon me-3">
-                                    <i class="fas fa-shield-alt fa-2x text-primary"></i>
+                                    <i class="fas fa-handshake fa-2x text-primary"></i>
                                 </div>
                                 <div class="safety-content">
-                                    <h5 class="mb-2">Weather Protection</h5>
-                                    <p class="text-muted mb-0">Keep away from moisture and extreme weather conditions.</p>
+                                    <h5 class="mb-2">Trusted Deal Flow</h5>
+                                    <p class="text-muted mb-0">Investors access a pipeline of promising ventures backed by transparency.</p>
                                 </div>
                             </div>
                             <div class="safety-tip d-flex align-items-start">
                                 <div class="safety-icon me-3">
-                                    <i class="fas fa-tools fa-2x text-primary"></i>
+                                    <i class="fas fa-chart-line fa-2x text-primary"></i>
                                 </div>
                                 <div class="safety-content">
-                                    <h5 class="mb-2">Regular Maintenance</h5>
-                                    <p class="text-muted mb-0">Schedule periodic checks for optimal battery performance.</p>
+                                    <h5 class="mb-2">Growth-Ready Ecosystem</h5>
+                                    <p class="text-muted mb-0">Collaborative tools and analytics support scalable startup success.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="battery-image-wrapper position-relative">
-                        <img src="https://media.istockphoto.com/id/1326746475/photo/battery-charging-symbol-icon.jpg?s=1024x1024&w=is&k=20&c=pli4pyWN385SNyuZUwdx--0MI6GeyaqSbKNhctohFnU=" alt="Battery Safety" class="img-fluid rounded-4 shadow-lg">
-                        <div class="floating-card bg-white p-3 rounded-3 shadow position-absolute">
-                            <div class="d-flex align-items-center">
-                                <div class="battery-stat me-3">
-                                    <i class="fas fa-bolt text-warning fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-1">Extended Battery Life</h6>
-                                    <p class="small text-muted mb-0">Up to 5 years with proper care</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="battery-image-wrapper position-relative">
+        <!-- Replace the image with a video -->
+        <video class="img-fluid rounded-4 shadow-lg" autoplay muted loop playsinline>
+            <source src="images/geneal/3245638-sd_640_360_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="floating-card bg-white p-3 rounded-3 shadow position-absolute">
+            <div class="d-flex align-items-center">
+                <div class="battery-stat me-3">
+                    <i class="fas fa-seedling text-success fa-2x"></i>
+                </div>
+                <div>
+                    <h6 class="mb-1">Investor Confidence</h6>
+                    <p class="small text-muted mb-0">Verified profiles and smart tracking increase investment security.</p>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Digital Showroom Section -->
-    <section class="digital-showroom py-5 bg-light">
-        <div class="container">
-            <div class="section-header text-center mb-5">
-                <h2>Experiance Digital Showroom On</h2>
-                <p class="text-muted">Shop from your favorite platform</p>
-            </div>
-            <div class="row g-4 justify-content-center">
-                <!-- Amazon -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="showroom-card card border-0 shadow-sm">
-                        <div class="text-center p-4">
-                            <img src="/images/digital_showroom/amazon.png" 
-                                 alt="Amazon" 
-                                 class="showroom-logo">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Flipkart -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="showroom-card card border-0 shadow-sm">
-                        <div class="text-center p-4">
-                            <img src="/images/digital_showroom/flipkart.png" 
-                                 alt="Flipkart" 
-                                 class="showroom-logo">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- bajajmall -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="showroom-card card border-0 shadow-sm">
-                        <div class="text-center p-4">
-                            <img src="/images/digital_showroom/bajaj.jpg" 
-                                 alt="bajaj" 
-                                 class="showroom-logo">
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- SMG Website -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="showroom-card card border-0 shadow-sm">
-                        <div class="text-center p-4">
-                            <img src="/images/digital_showroom/quess.png" 
-                                 alt="SMG Website" 
-                                 class="showroom-logo">
-                        </div>
-                    </div>
-                </div>
+    </div>
+</div>
             </div>
         </div>
     </section>
+    
+    <!-- Projects Section -->
+<section class="projects-section py-5 bg-light">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2>Our Projects</h2>
+            <p class="text-muted">Innovative projects with a vision for the future</p>
+        </div>
 
-    <!-- Partners Section -->
-    <section class="partners-section py-5 bg-light">
-        <div class="container">
-            <div class="section-header text-center mb-5">
-                <h2>Our Partners</h2>
-                <p class="text-muted">Financial & Insurance Partners</p>
+        <div class="row g-4">
+            <!-- Project 1 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="project-logo-card text-center p-3 bg-white shadow-sm rounded">
+                    <img src="/images/logo/ADAPTIVE LEARNING color.jpg" 
+                         alt="Adaptive Learning" 
+                         class="project-logo img-fluid"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/200x100?text=Adaptive+Learning'">
+                </div>
             </div>
 
-            <div class="row g-4">
-                <!-- Finance Partners -->
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/Acko.jpeg" 
-                             alt="Muthoot Finance" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=Muthoot'">
-                    </div>
+            <!-- Project 2 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="project-logo-card text-center p-3 bg-white shadow-sm rounded">
+                    <img src="/images/logo/pingme.png" 
+                         alt="Ping Me" 
+                         class="project-logo img-fluid"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/200x100?text=Ping+Me'">
                 </div>
+            </div>
 
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/bajaj-allianz-insurance6920.logowik.com.webp"
-                             alt="Bajaj Finance" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=Bajaj'">
-                    </div>
+            <!-- Project 3 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="project-logo-card text-center p-3 bg-white shadow-sm rounded">
+                    <img src="/images/logo/skillsicu.jpg" 
+                         alt="Chess Yoga" 
+                         class="project-logo img-fluid"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/200x100?text=Chess+Yoga'">
                 </div>
+            </div>
 
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/sk.png
-                        " 
-                             alt="HDFC Bank" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=HDFC'">
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/chola.png" 
-                             alt="ICICI Bank" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=ICICI'">
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/Digit.png" 
-                             alt="Axis Bank" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=Axis'">
-                    </div>
-                </div>
-
-                <!-- Insurance Partners -->
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/Mufin-Green-Logo-For-Website-01-01.png" 
-                             alt="New India Assurance" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=New+India'">
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/Orange Finance.png" 
-                             alt="LIC" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=LIC'">
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/Revfin.png" 
-                             alt="United India Insurance" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=United+India'">
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="partner-logo-card">
-                        <img src="/images/partners/Shriram.png" 
-                             alt="Oriental Insurance" 
-                             class="partner-logo"
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/200x100?text=Oriental'">
-                    </div>
-                </div>
-
+            <!-- Project 4 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="project-logo-card text-center p-3 bg-white shadow-sm rounded">
+                    <img src="/images/logo/WhatsApp Image 2025-05-07 at 14.00.09_36fcc9a6.jpg" 
+                         alt="Embedded Control Systems" 
+                         class="project-logo img-fluid"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/200x100?text=Embedded+Control+Systems'">
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Contact Us</h2>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form bg-white p-4 rounded">
-                        <!-- Your Web3Forms Access Key -->
-                        <input type="hidden" name="access_key" value="9ddc3387-5dad-4a68-8882-29098362dffd">
-                        
-                        <!-- Name Field -->
-                        <div class="mb-3">
-                            <input type="text" 
-                                   name="name" 
-                                   class="form-control" 
-                                   placeholder="Your Name" 
-                                   required>
-                        </div>
-
-                        <!-- Email Field -->
-                        <div class="mb-3">
-                            <input type="email" 
-                                   name="email" 
-                                   class="form-control" 
-                                   placeholder="Your Email" 
-                                   required>
-                        </div>
-
-                        <!-- Phone Number Field -->
-                        <div class="mb-3">
-                            <input type="tel" 
-                                   name="phone" 
-                                   class="form-control" 
-                                   placeholder="Your Phone Number"
-                                   pattern="[0-9]{10}"
-                                   title="Please enter a valid 10-digit phone number"
-                                   required>
-                        </div>
-
-                        <!-- Message Field -->
-                        <div class="mb-3">
-                            <textarea name="message" 
-                                      class="form-control" 
-                                      rows="4" 
-                                      placeholder="Your Message" 
-                                      required></textarea>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane me-2"></i>Send Message
-                            </button>
-                        </div>
-
-                        <!-- Success Message (Optional) -->
-                        <div class="mt-3" id="result"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    </div>
+</section>
+     
+<%- include('partials/contactUs') %>
+   
     <!-- Add this script for form handling -->
     <script>
         const form = document.querySelector("form");

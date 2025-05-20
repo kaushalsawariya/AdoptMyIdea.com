@@ -1,0 +1,62 @@
+ <!-- Contact Section -->
+ <section id="contact" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Contact Us</h2>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form bg-white p-4 rounded">
+                    <!-- Your Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="49da29db-4161-4b35-8adf-5d3e5082a5f2">
+                    
+                    <!-- Name Field -->
+                    <div class="mb-3">
+                        <input type="text" 
+                               name="name" 
+                               class="form-control" 
+                               placeholder="Your Name" 
+                               required>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <input type="email" 
+                               name="email" 
+                               class="form-control" 
+                               placeholder="Your Email" 
+                               required>
+                    </div>
+
+                    <!-- Phone Number Field -->
+                    <div class="mb-3">
+                        <input type="tel" 
+                               name="phone" 
+                               class="form-control" 
+                               placeholder="Your Phone Number"
+                               pattern="[0-9]{10}"
+                               title="Please enter a valid 10-digit phone number"
+                               required>
+                    </div>
+
+                    <!-- Message Field -->
+                    <div class="mb-3">
+                        <textarea name="message" 
+                                  class="form-control" 
+                                  rows="4" 
+                                  placeholder="Your Message" 
+                                  required></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                    </div>
+
+                    <!-- Success Message (Optional) -->
+                    <div class="mt-3" id="result"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

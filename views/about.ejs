@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | SMG Electric</title>
-    <%- include('partials/head-links') %>
+    <title>About Us | AdoptMyIdea.com</title>
+    <!-- Head links partial would be included here -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #00d09c;
@@ -12,47 +13,117 @@
             --dark-color: #1e2232;
             --light-color: #ffffff;
             --gray-color: #f8f9fa;
+            --light-gray: #f2f2f2;
+            --text-dark: #2d3748;
+            --text-muted: #718096;
         }
 
-        .about-section {
-            margin-top: 76px;
-            padding: 4rem 0;
-            min-height: calc(100vh - 76px);
-            display: flex;
-            align-items: center;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            position: relative;
-            z-index: 1; /* Ensure content is below navbar */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: #fafafa;
+            line-height: 1.6;
         }
 
-        .about-image {
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            position: relative;
-            aspect-ratio: 16/9;
-            background: var(--gray-color);
+        /* Navigation placeholder styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+            padding: 15px 0;
         }
 
-        .about-image img {
-            width: 100%;
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* Hero section */
+        .hero-section {
+            background-color: var(--light-color);
+            padding: 120px 0 80px;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .hero-heading {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subheading {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 650px;
+        }
+
+        /* Mission section */
+        .mission-section {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+
+        .mission-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .mission-card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            font-size: 28px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+
+        /* Stats section */
+        .stats-section {
+            padding: 100px 0;
+            background-color: var(--gray-color);
         }
 
         .stat-card {
-            background: var(--light-color);
+            background: white;
             border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            height: 100%;
             transition: transform 0.3s ease;
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
         .stat-card:hover {
@@ -60,37 +131,253 @@
         }
 
         .stat-number {
-            color: var(--primary-color);
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .ceo-section {
-            background-color: var(--gray-color);
-            padding: 4rem 0;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1s ease forwards 0.5s; /* Added delay */
+        .stat-label {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
-        .ceo-image-wrapper {
-            max-width: 400px;
-            margin: 0 auto;
-            border-radius: 12px;
+        /* Leadership section */
+        .leadership-section {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+
+        .leader-card {
+            background: #ffffff;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .ceo-image {
+        .leader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .leader-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 350px;
+        }
+
+        .leader-image {
             width: 100%;
-            height: 500px;
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .leader-card:hover .leader-image {
+            transform: scale(1.1);
+        }
+
+        .leader-info {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .leader-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .leader-title {
+            color: #00d09c;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .leader-bio {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f2f2f2;
+            color: #333;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background-color: #00d09c;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        /* Services section */
+        .services-section {
+            padding: 100px 0;
+            background-color: var(--gray-color);
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            height: 100%;
             transition: transform 0.3s ease;
         }
 
-        .ceo-image-wrapper:hover .ceo-image {
-            transform: scale(1.02);
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Call to action */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-outline-light {
+            border-width: 2px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-brand {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        .footer-heading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            margin-top: 50px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Preloader */
+        #preloader {
+            background-color: white;
+            transition: opacity 0.3s ease;
+            z-index: 1020;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .fade-in-delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in-delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .fade-in-delay-3 {
+            animation-delay: 0.6s;
         }
 
         @keyframes fadeIn {
@@ -100,138 +387,273 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .about-section {
-                margin-top: 60px;
-                padding: 2rem 0;
-                min-height: auto;
+        @media (max-width: 991.98px) {
+            .hero-section {
+                padding: 100px 0 60px;
             }
 
-            .about-image {
-                aspect-ratio: 16/9;
-                margin: 1rem 0;
+            .hero-heading {
+                font-size: 2.75rem;
             }
 
-            .about-image img {
-                height: auto;
-                max-height: 400px;
-            }
-
-            .ceo-image-wrapper {
-                max-width: 300px;
-            }
-
-            .ceo-image {
-                height: 400px;
-            }
-
-            .stat-card {
-                margin-bottom: 1rem;
-                min-height: 100px;
-                padding: 1.5rem;
-            }
-
-            .stat-number {
+            .section-title {
                 font-size: 2rem;
             }
-        }
 
-        @media (max-width: 576px) {
-            .ceo-image-wrapper {
-                max-width: 250px;
+            .mission-section, .stats-section, .leadership-section, .services-section, .cta-section {
+                padding: 70px 0;
             }
 
-            .ceo-image {
-                height: 350px;
+            .leader-image-wrapper {
+                height: 300px;
             }
         }
 
-        @media print {
-            .preloader {
-                display: none !important;
+        @media (max-width: 767.98px) {
+            .hero-heading {
+                font-size: 2.25rem;
             }
-        }
 
-        @media (max-width: 991.98px) {
-            .about-section {
-                margin-top: 60px;
-                padding-top: 2rem;
+            .hero-subheading {
+                font-size: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .mission-section, .stats-section, .leadership-section, .services-section, .cta-section {
+                padding: 50px 0;
+            }
+
+            .leader-image-wrapper {
+                height: 250px;
+            }
+
+            .leader-name {
+                font-size: 1.25rem;
+            }
+
+            .leader-title {
+                font-size: 1rem;
+            }
+
+            .leader-bio {
+                font-size: 0.9rem;
+            }
+
+            .cta-title {
+                font-size: 2.25rem;
             }
         }
     </style>
 </head>
 <body>
-    <div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex align-items-center justify-content-center" style="z-index: 1020;">
+    <!-- Preloader -->
+    <div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
-    <%- include('partials/navbar') %>
 
-    <!-- About Section -->
-    <section class="about-section" id="about">
+    <!-- Navbar (Placeholder - would be replaced by your navbar partial) -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="fw-bold mb-4">About SMG Electric</h1>
-                    <p class="lead mb-4">SMG Electric Scooters Ltd, led by visionary CEO Saurav Mittal, represents the pinnacle of innovation in electric mobility.</p>
-                    <p class="text-muted mb-4">Founded on October 20, 2020, this flagship of the SMG Group has garnered international recognition, aligning with esteemed organizations. With headquarters at Manesar, Haryana, and a workforce of 500, SMG has made significant strides in the electric vehicle industry.</p>
-                    
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="stat-card text-center">
-                                <div class="stat-number">₹500Cr</div>
-                                <p class="mb-0">Ongoing Projects</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="stat-card text-center">
-                                <div class="stat-number">₹10,000Cr</div>
-                                <p class="mb-0">Target Turnover</p>
-                            </div>
-                        </div>
+            <a class="navbar-brand" href="/">AdoptMyIdea</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Your navigation items would go here -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="hero-heading fade-in">Connecting Visionaries with Enablers</h1>
+                    <p class="hero-subheading fade-in fade-in-delay-1">
+                        At AdoptMyIdea.com, we believe that great ideas deserve to be seen, supported, and scaled. Our platform brings together founders, investors, and mentors in a unique ecosystem where innovation thrives.
+                    </p>
+                    <div class="d-flex gap-3 fade-in fade-in-delay-2">
+                        <a href="/sign-up" class="btn btn-primary btn-lg px-4 rounded-pill">Join Our Community</a>
+                        <a href="#our-mission" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">Learn More</a>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="about-image">
-                        <img src="/images/logo/WhatsApp Image 2025-03-28 at 14.12.41_304b0d38.jpg" 
-                             alt="SMG Headquarters" 
-                             class="img-fluid"
-                             width="1200"
-                             height="800"
-                             loading="lazy"
-                             >
+                <div class="col-lg-5 d-none d-lg-block fade-in fade-in-delay-3">
+                    <!-- Replace the image with a video -->
+                    <video class="img-fluid rounded-4 shadow-lg" autoplay muted loop playsinline>
+                        <source src="/images/geneal/3125448-sd_640_360_25fps.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section" id="our-mission">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Our Mission</h2>
+                <p class="section-subtitle mx-auto fade-in fade-in-delay-1">
+                    Founded in 2020, AdoptMyIdea.com has become a trusted platform for fostering innovation and collaboration. We empower entrepreneurs to launch, grow, and scale their startups with the right support, resources, and opportunities.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4 fade-in fade-in-delay-1">
+                    <div class="mission-card">
+                        <div class="mission-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778l-5.5 5.5zM8.5.015V7.5h7.485A8.001 8.001 0 0 0 8.5.015z"/>
+                            </svg>
+                        </div>
+                        <h3 class="h4 mb-3">Connect</h3>
+                        <p class="text-muted mb-0">
+                            We bring together founders with innovative ideas, investors seeking opportunities, and mentors with industry expertise.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in fade-in-delay-2">
+                    <div class="mission-card">
+                        <div class="mission-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                            </svg>
+                        </div>
+                        <h3 class="h4 mb-3">Enable</h3>
+                        <p class="text-muted mb-0">
+                            We provide the tools, resources, and support necessary for startups to overcome challenges and achieve sustainable growth.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in fade-in-delay-3">
+                    <div class="mission-card">
+                        <div class="mission-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a24.767 24.767 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25.286 25.286 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135Z"/>
+                                <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="h4 mb-3">Scale</h3>
+                        <p class="text-muted mb-0">
+                            We accelerate growth by providing access to funding, mentorship, and strategic partnerships that help startups reach their full potential.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CEO Section -->
-    <section class="ceo-section">
+    <!-- Services Section -->
+    <section class="services-section">
         <div class="container">
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-4 text-center">
-                    <div class="ceo-image-wrapper">
-                        <img src="images/logo/WhatsApp Image 2025-03-26 at 17.55.44_947e3c7a.jpg" 
-                             alt="Saurav Mittal" 
-                             class="ceo-image mb-4"
-                             width="400"
-                             height="500"
-                             loading="lazy"
-                             onerror="this.src='/images/fallback.jpg'">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">What We Offer</h2>
+                <p class="section-subtitle mx-auto fade-in fade-in-delay-1">
+                    Our platform is a hybrid ecosystem combining the power of a marketplace, a social network, and a startup accelerator—all in one place.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 fade-in fade-in-delay-1">
+                    <div class="service-card text-center">
+                        <div class="service-icon">🚀</div>
+                        <h3 class="service-title">For Founders</h3>
+                        <p class="text-muted mb-0">
+                            Post your startup, raise funds, find collaborators, and access mentorship to grow your business.
+                        </p>
                     </div>
-                    <h3 class="h4 mb-2">Saurav Mittal</h3>
-                    <p class="text-primary mb-0">Founder & CEO</p>
                 </div>
-                <div class="col-lg-8">
-                    <div class="ps-lg-4">
-                        <h2 class="fw-bold mb-4">Leadership Vision</h2>
-                        <p class="text-muted mb-4">Under Saurav Mittal's guidance, SMG aspires to make electric mobility universally accessible by 2050. His journey from a business-oriented family to establishing SMG highlights his entrepreneurial spirit, significantly impacting the electric mobility sector and earning accolades like the Best Entrepreneur 2023.</p>
-                        <div class="d-flex flex-wrap gap-3">
-                            <span class="badge bg-primary p-2">Best Entrepreneur 2023</span>
-                            <span class="badge bg-success p-2">500+ Employees</span>
-                            <span class="badge bg-info p-2">International Recognition</span>
+                <div class="col-lg-4 col-md-6 fade-in fade-in-delay-2">
+                    <div class="service-card text-center">
+                        <div class="service-icon">💼</div>
+                        <h3 class="service-title">For Investors</h3>
+                        <p class="text-muted mb-0">
+                            Discover curated startups, perform due diligence, and invest in equity or full acquisitions.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 fade-in fade-in-delay-3">
+                    <div class="service-card text-center">
+                        <div class="service-icon">🤝</div>
+                        <h3 class="service-title">For Mentors</h3>
+                        <p class="text-muted mb-0">
+                            Monetize your expertise by offering advisory sessions or project-based services to startups.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section bg-white">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Our Impact</h2>
+                <p class="section-subtitle mx-auto fade-in fade-in-delay-1">
+                    Since our launch in 2020, we've created a thriving ecosystem that continues to grow and make a difference.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4 fade-in fade-in-delay-1">
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Startups Launched</div>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in fade-in-delay-2">
+                    <div class="stat-card">
+                        <div class="stat-number">$25M+</div>
+                        <div class="stat-label">Funding Secured</div>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in fade-in-delay-3">
+                    <div class="stat-card">
+                        <div class="stat-number">10,000+</</div>
+                        <div class="stat-label">Community Members</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section class="leadership-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Leadership</h2>
+                <p class="section-subtitle mx-auto fade-in fade-in-delay-1">
+                    Meet the visionary behind AdoptMyIdea.com who is passionate about fostering innovation and empowering entrepreneurs.
+                </p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 fade-in fade-in-delay-2">
+                    <div class="leader-card">
+                        <div class="leader-image-wrapper">
+                            <img src="https://images.pexels.com/photos/4342352/pexels-photo-4342352.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mohit Shristava" class="leader-image">
+                        </div>
+                        <div class="leader-info">
+                            <h3 class="leader-name">Mohit Shristava</h3>
+                            <p class="leader-title">Founder & CEO</p>
+                            <p class="leader-bio">
+                                Mohit Shristava, a 1987 PEC Chandigarh alumnus, is the founder of AdoptMyIdea.com. With a strong background in embedded technologies through his company, Embedded Control System, he is dedicated to connecting innovators with investors and turning ideas into impact.
+                            </p>
+                            <div class="social-links">
+                                <a href="https://linkedin.com" class="social-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="https://twitter.com" class="social-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://github.com" class="social-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -239,59 +661,66 @@
         </div>
     </section>
 
-    <%- include('partials/footer') %>
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title fade-in">Ready to Join Us?</h2>
+            <p class="cta-subtitle fade-in fade-in-delay-1">
+                Become a part of our growing community and start making a difference today.
+            </p>
+            <a href="/sign-up" class="btn btn-outline-light btn-lg fade-in fade-in-delay-2">Get Started</a>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="footer-brand">AdoptMyIdea</h3>
+                    <p class="footer-text">
+                        Empowering entrepreneurs to bring their ideas to life.
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/careers">Careers</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4 class="footer-heading">Follow Us</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://facebook.com">Facebook</a></li>
+                        <li><a href="https://twitter.com">Twitter</a></li>
+                        <li><a href="https://linkedin.com">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 AdoptMyIdea. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Preloader
+        window.addEventListener('load', function () {
             const preloader = document.getElementById('preloader');
-            const images = document.querySelectorAll('img');
-            const fallbackImage = '/images/fallback.jpg';
-            let loadedImages = 0;
-            const totalImages = images.length;
-
-            function hidePreloader() {
-                if (preloader) {
-                    preloader.style.opacity = '0';
-                    setTimeout(() => {
-                        preloader.style.display = 'none';
-                        document.body.style.overflow = 'auto'; // Enable scrolling
-                    }, 300);
-                }
-            }
-
-            function handleImageLoad() {
-                loadedImages++;
-                const progress = (loadedImages / totalImages) * 100;
-                if (loadedImages === totalImages) {
-                    hidePreloader();
-                }
-            }
-
-            // Add timeout for slow connections
-            const timeoutDuration = 5000; // 5 seconds
-            const loadTimeout = setTimeout(hidePreloader, timeoutDuration);
-
-            images.forEach(img => {
-                if (img.complete) {
-                    handleImageLoad();
-                } else {
-                    img.addEventListener('load', handleImageLoad);
-                    img.addEventListener('error', function() {
-                        console.warn(`Failed to load image: ${this.src}`);
-                        this.src = fallbackImage;
-                        handleImageLoad();
-                    });
-                }
-            });
-
-            // Clear timeout if all images load before timeout
-            if (loadedImages === totalImages) {
-                clearTimeout(loadTimeout);
-                hidePreloader();
-            }
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 300);
         });
     </script>
-    <!-- Add this right before closing body tag -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
