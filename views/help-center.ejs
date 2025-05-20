@@ -353,10 +353,10 @@
             <h3 class="text-2xl font-bold mb-4">Still Need Help?</h3>
             <p class="text-lg mb-6">Our support team is ready to assist you with any questions or concerns.</p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center">
+                <a href="https://wa.me/9369308450?text=Hello%20AdoptMyIdea.com" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center">
                     <i class="fas fa-comment-dots mr-2"></i> Live Chat
                 </a>
-                <a href="#" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors inline-flex items-center">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sawariyakaushal3@gmail.com&su=Hello%20from%20AdoptMyIdea&body=Hello%2C%20AdoptMyIdea.com." class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors inline-flex items-center">
                     <i class="fas fa-envelope mr-2"></i> Email Support
                 </a>
                 <a href="#" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors inline-flex items-center">
@@ -429,11 +429,60 @@
         </div>
     </div>
 
-    <!-- Include Contact Us -->
-    <%- include('partials/contactUs') %>
-
-    <!-- Include Footer -->
-    <%- include('partials/footer') %>
+  
+    <!-- Improved Footer -->
+    <footer class="bg-white border-t mt-16">
+        <div class="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Brand & Tagline -->
+            <div>
+                <a href="/" class="flex items-center gap-2 text-2xl font-bold text-blue-700 mb-2">
+                    <i class="fas fa-lightbulb text-yellow-400"></i>
+                    AdoptMyIdea
+                </a>
+                <p class="text-gray-500 mt-2">Empowering founders, connecting buyers, and growing the startup ecosystem.</p>
+                <div class="flex gap-3 mt-4">
+                    <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-blue-700 hover:text-blue-900"><i class="fab fa-linkedin fa-lg"></i></a>
+                    <a href="#" class="text-pink-600 hover:text-pink-800"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-gray-700 hover:text-black"><i class="fab fa-facebook fa-lg"></i></a>
+                </div>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-3">Quick Links</h4>
+                <ul class="space-y-2 text-gray-600">
+                    <li><a href="/startups" class="hover:text-blue-700">Browse Startups</a></li>
+                    <li><a href="/startup-sale-registration" class="hover:text-blue-700">List Your Startup</a></li>
+                    <li><a href="/find-startups" class="hover:text-blue-700">For Buyers</a></li>
+                    <li><a href="/help-center" class="hover:text-blue-700">Help Center</a></li>
+                    <li><a href="/contact" class="hover:text-blue-700">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Resources -->
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-3">Resources</h4>
+                <ul class="space-y-2 text-gray-600">
+                    <li><a href="#" class="hover:text-blue-700">Blog</a></li>
+                    <li><a href="#" class="hover:text-blue-700">Video Tutorials</a></li>
+                    <li><a href="#" class="hover:text-blue-700">FAQ</a></li>
+                    <li><a href="#" class="hover:text-blue-700">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-700">Terms of Service</a></li>
+                </ul>
+            </div>
+            <!-- Newsletter Signup -->
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-3">Stay Updated</h4>
+                <form class="flex flex-col gap-2">
+                    <input type="email" placeholder="Your email address" class="px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Subscribe</button>
+                </form>
+                <p class="text-xs text-gray-400 mt-2">Get the latest updates and deals in your inbox.</p>
+            </div>
+        </div>
+        <div class="border-t text-center text-gray-400 text-sm py-4 bg-gray-50">
+            &copy; <%= new Date().getFullYear() %> AdoptMyIdea.com. All rights reserved.
+        </div>
+    </footer>
 
     <script>
         // Accordion functionality

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -16,5 +14,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    isVerified: { 
+        type: Boolean, 
+        default: false 
+    },
+    otp: String,
+    otpExpiry: Date,
 });
+
 module.exports = mongoose.model('User', userSchema);

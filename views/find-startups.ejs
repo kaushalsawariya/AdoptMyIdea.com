@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Startups | AdoptMyIdea.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="bg-white shadow p-4 mb-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-700">AdoptMyIdea.com</div>
+            <a href="/startup-sale-registration" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">List Your Startup</a>
+        </div>
+    </header>
+    <main class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold mb-6 text-center">Browse Startups for Sale</h1>
+        <form method="GET" action="/find-startups" class="mb-8 flex justify-center">
+            <input type="text" name="q" placeholder="Search by name, industry, or location..." class="w-full max-w-lg px-4 py-2 border rounded-l focus:outline-none" value="<%= typeof query !== 'undefined' ? query : '' %>">
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-r hover:bg-blue-700 transition">Search</button>
+        </form>
+        <div class="grid md:grid-cols-3 gap-8">
+            <% if (startups && startups.length > 0) { %>
+                <% startups.forEach(function(startup) { %>
+                    <div class="bg-white rounded-lg shadow p-6 flex flex-col">
+                        <h2 class="text-xl font-bold text-blue-700 mb-2"><%= startup.startupName %></h2>
+                        <p class="text-gray-700 mb-2"><%= startup.description %></p>
+                        <div class="text-sm text-gray-500 mb-2">
+                            <span><strong>Location:</strong> <%= startup.location %></span><br>
+                            <span><strong>Year:</strong> <%= startup.incorporationYear %></span>
+                        </div>
+                        <div class="text-sm text-gray-500 mb-2">
+                            <span><strong>Revenue:</strong> ₹<%= startup.monthlyRevenue %></span> |
+                            <span><strong>Profit:</strong> ₹<%= startup.monthlyProfit %></span>
+                        </div>
+                        <div class="mt-auto">
+                            <a href="<%= startup.website %>" target="_blank" class="text-blue-600 hover:underline">Visit Website</a>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="col-span-3 text-center text-gray-500">No startups found.</div>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>

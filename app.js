@@ -11,6 +11,9 @@ const cookieParser = require('cookie-parser'); // Add this with your other requi
 const mongoose = require('mongoose');
 const cors= require('cors');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer'); // Add at the top with other requires
+const multer = require('multer');
+const StartupSale = require('./models/StartupSale');
 
 mongoose.connect(process.env.MONGO_URI)
 
@@ -41,24 +44,17 @@ const limiter = rateLimit({ // Add this after other middleware
 
 app.use('/signup', limiter);
 
-
-
-
-// to locate ev charging stations
-
-app.get("/stations", async (req, res) => {
-    try {
-        const stations = await Station.find();
-        res.json(stations);
-    } catch (err) {
-        res.status(500).json({ error: "Server error" });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + '-' + file.originalname);
     }
 });
-app.get('/find-charging-station', (req, res) => {
-    res.render('index', {
-        title: 'Find Charging Station | SMG Electric'
-    });
-});
+const upload = multer({ storage: storage });
+
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -134,12 +130,7 @@ const requireAuth = async (req, res, next) => {
     }
 };
 
-// Routes
-const calculatorRoutes = {
-    'ice-vs-ev': 'ICE vs EV Calculator',
-    'tax-saver': 'Tax Saver Calculator',
-    'emi': 'EMI Calculator'
-};
+
 
 // Landing page
 app.get('/', (req, res) => {    
@@ -155,34 +146,7 @@ app.get('/about', (req, res) => {
     });
 });
 
-// Career routes
-app.get('/career', (req, res) => {
-    res.render('career', { 
-        title: 'Careers at SMG Electric'
-    });
-});
-
-// Job application routes
-app.get('/job-application', requireAuth, (req, res) => {
-    res.render('job-application', {
-        title: 'Job Application | SMG Electric'
-    });
-});
-
-// Internship application routes
-app.get('/internship-application', requireAuth,(req, res) => {
-    res.render('internship-application', {
-        title: 'Internship Application | SMG Electric'
-    });
-});
-
-// Application success route
-app.get('/application-success',requireAuth, (req, res) => {
-    res.render('application-success', {
-        title: 'Application Submitted | SMG Electric'
-    });
-});
-app.get('/startup-listing', (req, res) => {
+app.get('/startup-listing',requireAuth, (req, res) => {
     res.render('startup-listing-form'); // Renders the EJS form
 });
 
@@ -215,6 +179,13 @@ app.post('/login', validateLogin, async (req, res) => {
         if (!user) {
             return res.status(401).render('login', {
                 error: 'Invalid email or password'
+            });
+        }
+
+        
+        if (!user.isVerified) {
+            return res.status(401).render('login', {
+                error: 'Please verify your email before logging in'
             });
         }
 
@@ -258,7 +229,7 @@ app.post('/signup', validateSignup, async (req, res) => {
 
         const { name, email, password } = req.body;
 
-        // Check for strong password
+        // Password strength check
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
         if (!passwordRegex.test(password)) {
             return res.status(400).render('signup', {
@@ -286,23 +257,39 @@ app.post('/signup', validateSignup, async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
+        // Generate OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpiry = Date.now() + 10 * 60 * 1000; // 10 minutes
+
         const newUser = new userModel({
             name,
             email,
-            password: hash
+            password: hash,
+            isVerified: false,
+            otp,
+            otpExpiry
         });
 
         await newUser.save();
 
-        const token = jwt.sign({ email }, process.env.JWT_SECRET , {
-            expiresIn: '24h'
+        // Send OTP email
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
         });
-        res.cookie("jwt", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production'
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Your OTP Code',
+            text: `Your OTP code is ${otp}. It expires in 10 minutes.`
         });
 
-        res.redirect('/login');
+        res.render('verify-otp', { email, error: null });
     } catch (error) {
         console.error('Signup error:', error);
         res.status(500).render('signup', {
@@ -310,6 +297,22 @@ app.post('/signup', validateSignup, async (req, res) => {
             values: req.body
         });
     }
+});
+
+app.post('/verify-otp', async (req, res) => {
+    const { email, otp } = req.body;
+    const user = await userModel.findOne({ email });
+    if (!user) {
+        return res.status(400).render('verify-otp', { error: 'User not found', email });
+    }
+    if (user.otp !== otp || Date.now() > user.otpExpiry) {
+        return res.status(400).render('verify-otp', { error: 'Invalid or expired OTP', email });
+    }
+    user.isVerified = true;
+    user.otp = undefined;
+    user.otpExpiry = undefined;
+    await user.save();
+    res.redirect('/login');
 });
 
 // Add this with your other auth routes
@@ -324,65 +327,88 @@ app.get("/", (req, res) => {
 });
 
 // Buyers page
-app.get('/find-startups', (req, res) => {
-    res.render('buyers'); 
+app.get('/find-startups',requireAuth, async (req, res) => {
+    const query = req.query.q || '';
+    let startups = [];
+    if (query) {
+        startups = await StartupSale.find({
+            $or: [
+                { startupName: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } },
+                { location: { $regex: query, $options: 'i' } }
+            ]
+        });
+    } else {
+        startups = await StartupSale.find();
+    }
+    res.render('find-startups', { startups, query });
 });
 
-// Add this route with your other routes
-app.get('/test-ride', (req, res) => {
-    res.render('test-ride', {
-        title: 'Book Test Ride | SMG Electric'
-    });
-});
+
 app.get('/help-center', (req, res) => {
     res.render('help-center');
 });
-// Add test ride booking form route
-app.get('/book-test-ride',requireAuth, (req, res) => {
-    const centerId = req.query.center;
-    res.render('book-test-ride-form', {
-        title: 'Book Test Ride | SMG Electric',
-        centerId: centerId
-    });
-});
 
-app.get('/dealers', (req, res) => {
-    res.render('dealers', {
-        title: 'Find a Dealer | SMG Electric'
-    });
-});
 
-app.get('/startups', (req, res) => {
-    const startups = [
-        {
-            id: 1,
-            name: "TechHive Innovations",
-            logo: "/images/startups/techhive.jpg",
-            description: "Revolutionizing the way businesses use AI to solve problems.",
-            industry: "AI",
-            stage: "Seed",
-            funding: "$500,000"
-        },
-        {
-            id: 2,
-            name: "HealthifyMe",
-            logo: "/images/startups/healthifyme.jpg",
-            description: "Empowering individuals to lead healthier lives with personalized plans.",
-            industry: "HealthTech",
-            stage: "Series A",
-            funding: "$2,000,000"
-        },
-        {
-            id: 3,
-            name: "EduSpark",
-            logo: "/images/startups/eduspark.jpg",
-            description: "Transforming education with innovative EdTech solutions.",
-            industry: "EdTech",
-            stage: "MVP",
-            funding: "Open to discussion"
-        }
-    ];
+app.get('/startups',requireAuth, async (req, res) => {
+    const startups = await StartupSale.find().sort({ createdAt: -1 }).limit(15);
     res.render('startup-listing', { startups });
+});
+
+app.get('/startup-sale-registration',requireAuth, (req, res) => {
+    res.render('startup-sale-registration');
+});
+
+app.post('/startup-sale-registration', upload.fields([
+    { name: 'registrationCertificate', maxCount: 1 },
+    { name: 'mediaFiles', maxCount: 10 },
+    { name: 'pitchDeck', maxCount: 1 }
+]), async (req, res) => {
+    try {
+        const {
+            startupName, founderName, email, phone, description,
+            incorporationYear, location, legallyRegistered,
+            monthlyRevenue, monthlyProfit, askingPrice, website,
+            teamInfo, reasonForSelling
+        } = req.body;
+
+        const included = req.body['included[]'] || req.body.included || [];
+
+        const registrationCertificate = req.files['registrationCertificate'] ? req.files['registrationCertificate'][0].path.replace('public', '') : '';
+        const mediaFiles = req.files['mediaFiles'] ? req.files['mediaFiles'].map(f => f.path.replace('public', '')) : [];
+        const pitchDeck = req.files['pitchDeck'] ? req.files['pitchDeck'][0].path.replace('public', '') : '';
+
+        const startup = new StartupSale({
+            startupName,
+            founderName,
+            email,
+            phone,
+            description,
+            incorporationYear,
+            location,
+            legallyRegistered,
+            registrationCertificate,
+            monthlyRevenue,
+            monthlyProfit,
+            askingPrice,
+            included: Array.isArray(included) ? included : [included],
+            website,
+            mediaFiles,
+            pitchDeck,
+            teamInfo,
+            reasonForSelling
+        });
+
+        await startup.save();
+        res.render('thank-you', { message: 'Thank you for registering your startup for sale!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).render('error', { title: 'Error', message: 'Something went wrong!' });
+    }
+});
+
+app.get('/contact', (req, res) => {
+    res.render('contactUs');
 });
 
 // Error handling middleware

@@ -3,9 +3,6 @@
         <div class="row g-4">
             <!-- Company Info -->
             <div class="col-lg-3 col-md-6">
-
-
-
                 <img src="/images/logo/Screenshot%202025-05-07%20163204.png" alt="AdoptMyIdea Logo" class="mb-3" height="40">
                 <p class="text-light mb-3">Empowering ideas with innovative solutions for a better tomorrow.</p>
                 <div class="social-links">
@@ -13,6 +10,11 @@
                     <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
                 </div>
+                <% if (typeof user !== 'undefined' && user && user.name) { %>
+                    <div class="mt-3 text-light">
+                        👋 Welcome, <strong><%= user.name %></strong>
+                    </div>
+                <% } %>
             </div>
 
             <!-- Quick Links -->
@@ -20,7 +22,6 @@
                 <h5 class="text-light mb-3">Quick Links</h5>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="/about" class="text-light text-decoration-none">About Us</a></li>
-                    <li class="mb-2"><a href="/pricing" class="text-light text-decoration-none">Pricing</a></li>
                     <li class="mb-2"><a href="/help-center" class="text-light text-decoration-none">Help Center</a></li>
                     <li class="mb-2"><a href="/blog-to-grow" class="text-light text-decoration-none">Blog to Grow</a></li>
                     <li class="mb-2"><a href="/contact" class="text-light text-decoration-none">Contact</a></li>
@@ -55,16 +56,16 @@
                 <ul class="list-unstyled text-light">
                     <li class="mb-2">
                         <i class="fas fa-map-marker-alt me-2 text-primary"></i>
-                        Office 370 New Deep Nagar<br>
-                        Hoshiarpur - 146002
+                        Kesho Ram Complex, Sector 45,<br>
+                        Chandigarh, 160047, India
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-phone me-2 text-primary"></i>
-                        1882318705
+                        +91 936-930-8450
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-envelope me-2 text-primary"></i>
-                        smgelectricscootersltd@gmail.com
+                        sawariyakaushal3@gmail.com
                     </li>
                 </ul>
             </div>

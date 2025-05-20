@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AdoptMyIdea.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        #map {
+            height: 250px;
+            width: 100%;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+        }
+        .section-header {
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="bg-white p-10 rounded-xl shadow-xl w-full max-w-4xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold text-gray-900">Contact Us</h2>
+            <div class="text-xl font-semibold text-blue-700">AdoptMyIdea.com</div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Contact Information -->
+            <div class="space-y-6">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Get in Touch</h3>
+                <div class="space-y-5">
+                    <div class="flex items-start space-x-3">
+                        <svg class="contact-icon text-blue-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2l-8 5-8-5V6l8 5 8-5z"/>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-gray-700">Email</p>
+                            <a href="mailto:sawariyakaushal3@gmail.com" class="text-blue-700 hover:underline">sawariyakaushal3@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg class="contact-icon text-blue-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2z"/>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-gray-700">Phone</p>
+                            <a href="tel:+919369308450" class="text-blue-700 hover:underline">+91 93693 08450</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg class="contact-icon text-blue-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-gray-700">Office Address</p>
+                            <p class="text-gray-600">Kesho Ram Complex, Sector 45, Chandigarh, 160047, India</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Social Media Links -->
+                <div class="space-y-2">
+                    <h4 class="text-sm font-medium text-gray-700">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://twitter.com/AdoptMyIdea" target="_blank" class="text-blue-700 hover:text-blue-800">
+                            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/company/AdoptMyIdea" target="_blank" class="text-blue-700 hover:text-blue-800">
+                            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                            </svg>
+                        </a>
+                        <a href="https://facebook.com/AdoptMyIdea" target="_blank" class="text-blue-700 hover:text-blue-800">
+                            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-7h-2v-2h2v-1.5c0-2.1 1.29-3.24 3.16-3.24.9 0 1.67.07 1.89.1v2.1h-1.3c-1.02 0-1.22.49-1.22 1.2V12h2.45l-.32 2H14v7c4.56-.93 8-4.96 8-9.8z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Map Section -->
+                <div class="mt-6">
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Our Location</h4>
+                    <div id="map"></div>
+                </div>
+            </div>
+            <!-- Contact Form -->
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Send Us a Message</h3>
+                <form action="/contact" method="POST" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Name <span class="tooltip" data-tooltip="Enter your full name"></span></label>
+                        <input type="text" name="name" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email <span class="tooltip" data-tooltip="Provide a valid email address"></span></label>
+                        <input type="email" name="email" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Subject <span class="tooltip" data-tooltip="Briefly describe the purpose of your message"></span></label>
+                        <input type="text" name="subject" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Message <span class="tooltip" data-tooltip="Include details about your inquiry or feedback"></span></label>
+                        <textarea name="message" rows="5" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200"></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="reset" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition duration-200">Reset</button>
+                        <button type="submit" class="px-6 py-2.5 bg-blue-700 text-white rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 transition duration-200">Send Message</button>
+                    </div>
+                </form>
+                <p class="mt-4 text-sm text-gray-600">We typically respond within 24-48 hours.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Initialize Leaflet map
+        const map = L.map('map').setView([30.714057, 76.742057], 15);
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 18
+        }).addTo(map);
+        // Add marker
+        L.marker([30.714057, 76.742057])
+            .addTo(map)
+            .bindPopup('AdoptMyIdea.com<br>Kesho Ram Complex, Sector 45')
+            .openPopup();
+    </script>
+</body>
+</html>

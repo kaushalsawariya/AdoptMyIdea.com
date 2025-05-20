@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Your Startup for Sale - AdoptMyIdea.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .section-header {
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        .form-group {
+            background-color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="bg-white p-10 rounded-xl shadow-xl w-full max-w-4xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold text-gray-900">Register Your Startup for Sale</h2>
+            <div class="text-xl font-semibold text-blue-700">AdoptMyIdea.com</div>
+        </div>
+        <form action="/startup-sale-registration" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <!-- Basic Info -->
+            <div class="form-group">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Basic Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Startup Name <span class="tooltip" data-tooltip="Enter the official name of your startup">ℹ️</span></label>
+                        <input type="text" name="startupName" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Founder Name <span class="tooltip" data-tooltip="Provide the full name of the primary founder">ℹ️</span></label>
+                        <input type="text" name="founderName" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Contact Email <span class="tooltip" data-tooltip="Use a business email for communication">ℹ️</span></label>
+                        <input type="email" name="email" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Phone Number <span class="tooltip" data-tooltip="Include country code (e.g., +1 123-456-7890)">ℹ️</span></label>
+                        <input type="tel" name="phone" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                </div>
+            </div>
+            <!-- Startup Details -->
+            <div class="form-group">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Startup Details</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Startup Description <span class="tooltip" data-tooltip="Describe your startup’s mission and offerings">ℹ️</span></label>
+                        <textarea name="description" rows="4" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Year of Incorporation <span class="tooltip" data-tooltip="Enter the year your startup was legally formed">ℹ️</span></label>
+                            <input type="number" name="incorporationYear" min="1900" max="2099" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Location (City, Country) <span class="tooltip" data-tooltip="Specify your startup’s primary location">ℹ️</span></label>
+                            <input type="text" name="location" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Ownership & Legal -->
+            <div class="form-group">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Ownership & Legal</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Is the startup legally registered? <span class="tooltip" data-tooltip="Indicate if your startup is formally registered">ℹ️</span></label>
+                        <select name="legallyRegistered" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Business Registration Certificate (Upload) <span class="tooltip" data-tooltip="Upload a PDF, JPG, or PNG of your registration document">ℹ️</span></label>
+                        <input type="file" name="registrationCertificate" accept=".pdf,.jpg,.jpeg,.png" class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none">
+                    </div>
+                </div>
+            </div>
+            <!-- Financial Summary -->
+            <div class="form-group">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Financial Summary</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Monthly Revenue (₹ or $) <span class="tooltip" data-tooltip="Enter average monthly revenue">ℹ️</span></label>
+                        <input type="number" name="monthlyRevenue" min="0" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Monthly Profit (₹ or $) <span class="tooltip" data-tooltip="Enter average monthly profit">ℹ️</span></label>
+                        <input type="number" name="monthlyProfit" min="0" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Asking Price (₹ or $) <span class="tooltip" data-tooltip="Specify your desired sale price">ℹ️</span></label>
+                        <input type="number" name="askingPrice" min="0" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                </div>
+            </div>
+            <!-- What's Included -->
+            <div class="form-group">
+                <h3 class="section-header text-xl font-semibold text-gray-800">What's Included</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="included[]" value="Website/Domain" class="h-4 w-4 text-blue-700 focus:ring-blue-700 border-gray-300 rounded">
+                        <span class="text-sm text-gray-700">Website / Domain</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="included[]" value="Codebase/App" class="h-4 w-4 text-blue-700 focus:ring-blue-700 border-gray-300 rounded">
+                        <span class="text-sm text-gray-700">Codebase / App</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="included[]" value="Customer/User Data" class="h-4 w-4 text-blue-700 focus:ring-blue-700 border-gray-300 rounded">
+                        <span class="text-sm text-gray-700">Customer/User Data</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="included[]" value="Social Media Accounts" class="h-4 w-4 text-blue-700 focus:ring-blue-700 border-gray-300 rounded">
+                        <span class="text-sm text-gray-700">Social Media Accounts</span>
+                    </label>
+                </div>
+            </div>
+            <!-- Product/Online Presence -->
+            <div class="form-group">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Product/Online Presence</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Startup Website or App Link <span class="tooltip" data-tooltip="Provide a URL to your website or app">ℹ️</span></label>
+                        <input type="url" name="website" class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Upload Screenshots / Demo Video (optional) <span class="tooltip" data-tooltip="Upload images or videos showcasing your product">ℹ️</span></label>
+                        <input type="file" name="mediaFiles" accept="image/*,video/*" multiple class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none">
+                    </div>
+                </div>
+            </div>
+            <!-- Optional -->
+            <div class="form-group">
+                <h3 class="section-header text-xl font-semibold text-gray-800">Optional Information</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Pitch Deck (optional) <span class="tooltip" data-tooltip="Upload a PDF, PPT, or PPTX of your pitch deck">ℹ️</span></label>
+                        <input type="file" name="pitchDeck" accept=".pdf,.ppt,.pptx" class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Team Info (optional) <span class="tooltip" data-tooltip="Describe your team’s roles and expertise">ℹ️</span></label>
+                        <textarea name="teamInfo" rows="3" class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Reason for Selling (optional) <span class="tooltip" data-tooltip="Explain why you are selling your startup">ℹ️</span></label>
+                        <textarea name="reasonForSelling" rows="3" class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button type="reset" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition duration-200">Reset Form</button>
+                <button type="submit" class="px-6 py-2.5 bg-blue-700 text-white rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 transition duration-200">Submit Registration</button>
+            </div>
+        </form>
+        <p class="mt-6 text-center text-sm text-gray-600">
+            Need help? Contact us at <a href="mailto:support@AdoptMyIdea.com" class="text-blue-700 hover:underline">support@AdoptMyIdea.com</a>
+        </p>
+    </div>
+</body>
+</html>
