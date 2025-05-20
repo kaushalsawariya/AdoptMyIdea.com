@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Startup Blog Feed</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .blog { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .blog a { text-decoration: none; color: #007bff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Latest Startup Blogs from TechCrunch</h1>
+    <% blogs.forEach(blog => { %>
+        <div class="blog">
+            <a href="<%= blog.link %>" target="_blank"><%= blog.title %></a>
+            <p><%= blog.contentSnippet %></p>
+            <small><%= new Date(blog.pubDate).toLocaleDateString() %></small>
+        </div>
+    <% }); %>
+</body>
+</html>
