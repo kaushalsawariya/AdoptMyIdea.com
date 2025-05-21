@@ -114,7 +114,8 @@
             <!-- Contact Form -->
             <div class="bg-gray-50 p-6 rounded-lg">
                 <h3 class="section-header text-xl font-semibold text-gray-800">Send Us a Message</h3>
-                <form action="/contact" method="POST" class="space-y-4">
+                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+                      <input type="hidden" name="access_key" value="49da29db-4161-4b35-8adf-5d3e5082a5f2">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Name <span class="tooltip" data-tooltip="Enter your full name"></span></label>
                         <input type="text" name="name" required class="mt-1 w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition duration-200">
