@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const StartupSale = require('./models/StartupSale'); // Adjust path if needed
 
-mongoose.connect('mongodb://localhost:27017/adoptmyidea', {
+mongoose.connect('mongodb+srv://singhgarvita550:Hig1h1K3NDZjEm2g@cluster0.shqofha.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
