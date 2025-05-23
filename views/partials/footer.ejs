@@ -1,3 +1,70 @@
+
+<style>
+    footer {
+        background-color: #111827;
+    }
+
+    footer a {
+        transition: all 0.3s ease;
+        opacity: 0.75;
+    }
+
+    footer a:hover {
+        opacity: 1;
+        color: var(--primary-color) !important;
+    }
+
+    .social-links a {
+        opacity: 0.9;
+        transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+
+    footer i {
+        width: 20px;
+    }
+
+    footer .text-primary {
+        color: var(--primary-color) !important;
+    }
+
+    footer .list-unstyled a {
+        display: inline-flex;
+        align-items: center;
+        opacity: 0.75;
+        transition: all 0.3s ease;
+    }
+
+    footer .list-unstyled a:hover {
+        opacity: 1;
+        transform: translateX(5px);
+        color: var(--primary-color) !important;
+    }
+
+    footer .list-unstyled i {
+        width: 20px;
+        color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+        footer {
+            text-align: center;
+        }
+
+        .social-links {
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        footer .col-md-6 {
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
 <footer class="bg-dark py-5">
     <div class="container">
         <div class="row g-4">
@@ -96,70 +163,3 @@
         </div>
     </div>
 </footer>
-
-<style>
-    footer {
-        background-color: #111827;
-    }
-
-    footer a {
-        transition: all 0.3s ease;
-        opacity: 0.75;
-    }
-
-    footer a:hover {
-        opacity: 1;
-        color: var(--primary-color) !important;
-    }
-
-    .social-links a {
-        opacity: 0.9;
-        transition: all 0.3s ease;
-    }
-
-    .social-links a:hover {
-        opacity: 1;
-        transform: translateY(-3px);
-    }
-
-    footer i {
-        width: 20px;
-    }
-
-    footer .text-primary {
-        color: var(--primary-color) !important;
-    }
-
-    footer .list-unstyled a {
-        display: inline-flex;
-        align-items: center;
-        opacity: 0.75;
-        transition: all 0.3s ease;
-    }
-
-    footer .list-unstyled a:hover {
-        opacity: 1;
-        transform: translateX(5px);
-        color: var(--primary-color) !important;
-    }
-
-    footer .list-unstyled i {
-        width: 20px;
-        color: var(--primary-color);
-    }
-
-    @media (max-width: 768px) {
-        footer {
-            text-align: center;
-        }
-
-        .social-links {
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        footer .col-md-6 {
-            margin-bottom: 1.5rem;
-        }
-    }
-</style>

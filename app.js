@@ -132,9 +132,9 @@ const requireAuth = async (req, res, next) => {
 
 
 
-// Landing page
+// home page
 app.get('/', (req, res) => {    
-    res.render("landing");
+    res.render("home");
 });
 
 
